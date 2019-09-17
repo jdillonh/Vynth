@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    text-align: center;
+    background-color: #505050;
+    font-family: 'PT Sans', sans-serif;
+    color: white;
+}
+
+/* 
+   Module Styles
+*/
+
+/* TODO remove this element, just debug */
+#new-mod-button {
+    position: absolute;
+}
+
+.module {
+    position: absolute;
+    z-index: 9;
+    background-color: black;
+    border: 4px solid white;
+    border-radius: 0px;
+    color: white;
+    text-align: center;
+    cursor: move;
+    width: 2.9em;
+    height: 2.9em;
+}
+
+.module-header {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: grey;
+    color: #fff;
+    border-radius: inherit;
+}
+
+.inlet-wrapper {
+    position: absolute;
+    z-index: 100;
+    left: -0.35em;
+    width: 20px;
+    height: 100%;
+    background-color: transparent;
+}
+
+.inlet {
+    position: relative;
+    margin-top: 30%;
+    cursor: pointer;
+    height: 0.35em;
+    width: 0.35em;
+    background-color: grey;
+    border-radius: 50%;
+    border: 3px solid transparent;
+}
+.inlet:nth-child(1) {
+    margin-top: 0px;
+/* 
+      this makes for better spacing in general, 
+      and when there are 3 inlets
+*/
+}
+
+.inlet:hover {
+    border: 3px solid red;
+}
+
+.outlet-wrapper {
+    position: absolute;
+    z-index: 100;
+    left: calc(100% - 0.3em);
+    width: 20px;
+    background-color: transparent;
+}
+
+.outlet {
+    cursor: pointer;
+    margin-top: 30%;
+    height: 0.35em;
+    width: 0.35em;
+    background-color: grey;
+    border-radius: 50%;
+    z-index: 11;
+    border: 3px solid transparent;
+}
+.outlet:nth-child(1) {
+    margin-top: 0px;
+/* 
+      this makes for better spacing in general, 
+      and when there are 3 inlets
+*/
+}
+
+.outlet:hover {
+    border: 3px solid blue;
+}
+
+
+#module-canvas {
+    height: 32em;
+}
+
+#patch-cord-canvas {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 1000;
+    
+}
+
+.patch-cord {
+    z-index: 99;
+}
+
+#screen {
+    z-index: -1;
+    position: absolute;
+    top: 1.5em;
+    left: 1.5em;
+
+    top: 0px;
+    left: 0px;
+}

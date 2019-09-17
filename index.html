@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+
+	<title>The HTML5 Herald</title>
+	<meta name="description" content="The HTML5 Herald">
+	<meta name="author" content="SitePoint">
+
+	<link rel="stylesheet" href="styles.css?v=1.0">
+	<link rel="stylesheet" href="controls.css?v=1.0">
+
+    </head>
+
+    <body>
+
+	
+	<!-- control bars -->
+	<ul class="side-bar">
+	    <li class="bar-item">
+		X
+	    </li>
+	    <li id="x" class="bar-item"
+		onclick="addModule(modules.xDriver)">
+		&#8658
+	    </li>
+	    <li id="y" class="bar-item"
+		onclick="addModule(modules.yDriver)">
+		&#8658
+	    </li>
+	    <li id="time" class="bar-item"
+		onclick="addModule(modules.timeDriver)">
+		<i> t </i>
+	    </li>
+
+	    <li id="sin" class="bar-item"
+		onclick="addModule(modules.sinOsc)">
+		sin
+	    </li>
+	    <li id="tri" class="bar-item"
+		onclick="addModule(modules.triOsc)">
+		tri
+	    </li>
+	    <li id="saw" class="bar-item"
+		onclick="addModule(modules.sawOsc)">
+		saw
+	    </li>
+	</ul>
+	<ul class="top-bar">
+	    <li id="rot" class="bar-item top-bar-item">
+		&#8635;
+	    </li>
+
+	    <li id="kal" class="bar-item top-bar-item">
+		&#11041;
+	    </li>
+	    <li id="eye" class="bar-item top-bar-item"
+		onclick="addModule(modules.eyeOut)">
+		&#x3a9;
+	    </li>
+	</ul>
+
+
+	<div id="module-canvas">
+	    <svg id="patch-cord-canvas" xmlns="http://www.w3.org/2000/svg">
+	    </svg>
+	</div>
+
+	<div id="screen">
+	</div>
+
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+	<script src="lib/svg.js"></script>
+	<script src="lib/p5.min.js"></script>
+	<script src="mouse.js"></script>
+	<script src="main.js"></script>
+	<script src="modules.js"></script>
+	<script src="screen.js"></script>
+
+
+    </body>
+
+    <template id="module-template">
+	<div class="module" id="module-x">
+	    <!--
+		<div class="module-header" id="module-x-header">Click here to move</div>
+		-->
+		<div class="inlet-wrapper"> 
+		    <!-- these get dynamically filled
+			 <div class="inlet"></div>
+			 -->
+		</div>
+		<div class="outlet-wrapper">
+		    <!-- 
+			 <div class="outlet"></div>
+			 -->
+		</div>
+		<div class="guts">
+		    <p>here <br>
+			go <br>
+			guts</p>
+		</div>
+	</div>
+    </template>
+    <template id="patch-cable-template">
+	<line class="patch-cable" id="patch-cable-x" xmlns="http://www.w3.org/2000/svg"
+	      x1="0" y1="80" x2="100" y2="200" stroke="black"/>
+    </template>
+
+
+</html>
+
+
+
+<!-- https://www.w3schools.com/howto/howto_js_draggable.asp -->
