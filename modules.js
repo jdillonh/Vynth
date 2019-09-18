@@ -70,6 +70,17 @@ var modules = {
 	outlets : 1,
     },
 
+    // Operators
+    multOp : {
+	type : "multOp",
+	inlets : 2,
+	outlets : 1,
+	textContent : '*',
+	glslSnippet : (in1, in2) => {
+	    return `(${in1} * ${in2})`;
+	}
+    },
+
     // Drivers
     xDriver : {
 	type : "xDriver",
@@ -89,6 +100,7 @@ var modules = {
 	type : "timeDriver",
 	inlets : 0,
 	outlets : 1,
+	textContent : "t",
 	glslSnippet : () => { return "u_time/100.0" },
     },
 
@@ -100,7 +112,6 @@ var modules = {
 	textContent : "sin",
 	icon : null,
 	glslSnippet : ( driver, offset, color ) => {
-	    console.log('sinOsc here, color is', color );
 	    let op = '+';
 	    if( !offset || color == "green") {
 		op = '';
@@ -131,7 +142,49 @@ var modules = {
 	outlets : 1,
 	textContent : "saw",
 	icon : null,
+	glslSnippet : ( driver, offset, color ) => {
+	    let op = '+';
+	    if( !offset || color == "green") {
+		op = '';
+		offset = '';
+	    }
+	    else if( color == "red" ) {
+		op = '-';
+	    }
+	    else if( color == "blue" ) {
+		op = '+';
+	    }
+	    else {
+		throw "bad color"
+	    }
+	    return `fract( 10.0 * ${driver} ${op} ${offset} )`;
+	}
     },
+    sqrOsc : {
+	type : "sqrOsc",
+	inlets : 2, //TODO add PW / PWM
+	outlets : 1,
+	textContent : "sqr",
+	icon : null,
+	glslSnippet : ( driver, offset, color ) => {
+	    let op = '+';
+	    if( !offset || color == "green") {
+		op = '';
+		offset = '';
+	    }
+	    else if( color == "red" ) {
+		op = '-';
+	    }
+	    else if( color == "blue" ) {
+		op = '+';
+	    }
+	    else {
+		throw "bad color"
+	    }
+	    return `((10.0 * ${driver} ${op} ${offset}) % 1)`;
+	}
+    },
+
 
     // Transformations
     rotateTrans : {
@@ -145,9 +198,16 @@ var modules = {
 	textContent : "kal",
     },
     repeatTrans : {
+	type : "repeatTrans",
 	inlets : 1,
 	outlets : 1,
 	textContent : "rep",
+	glslSnippet : (input) => {
+	    if( !input ) {
+		return '1.0';
+	    }
+	    return ` (${input}/4.0) `;
+	}
     },
 
 };

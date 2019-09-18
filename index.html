@@ -33,7 +33,10 @@
 		onclick="addModule(modules.timeDriver)">
 		<i> t </i>
 	    </li>
-
+	    <li id="time" class="bar-item"
+		onclick="addModule(modules.multOp)">
+		*
+	    </li>
 	    <li id="sin" class="bar-item"
 		onclick="addModule(modules.sinOsc)">
 		sin
@@ -46,6 +49,10 @@
 		onclick="addModule(modules.sawOsc)">
 		saw
 	    </li>
+	    <li id="sqr" class="bar-item"
+		onclick="addModule(modules.sqrOsc)">
+		sqr
+	    </li>
 	</ul>
 	<ul class="top-bar">
 	    <li id="rot" class="bar-item top-bar-item">
@@ -55,11 +62,22 @@
 	    <li id="kal" class="bar-item top-bar-item">
 		&#11041;
 	    </li>
+	    <li id="rep" class="bar-item top-bar-item"
+		onClick="addModule(modules.repeatTrans)">
+		rep
+	    </li>
 	    <li id="eye" class="bar-item top-bar-item"
 		onclick="addModule(modules.eyeOut)">
 		&#x3a9;
 	    </li>
 	</ul>
+	<ul class="right-top-bar">
+	    <li id="compile" class="bar-item top-bar-item"
+		onclick="compileAll()">
+		rel
+	    </li>
+	</ul>
+
 
 
 	<div id="module-canvas">

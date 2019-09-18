@@ -15,6 +15,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    margin-left: 4px;
 }
 .bar-item {
     background-color: transparent;
@@ -41,7 +42,16 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    left: 72px;
+    left: 76px;
+}
+
+.right-top-bar {
+    z-index: 11;
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    right: 4px;
 }
 
 .top-bar-item {
