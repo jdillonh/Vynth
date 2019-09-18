@@ -64,7 +64,7 @@ var modules = {
 	
     },
 
-    // Uniforms
+    // Uniforms 
     knobUnifom : {
 	inlets : 0,
 	outlets : 1,
