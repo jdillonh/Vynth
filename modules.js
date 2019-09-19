@@ -181,7 +181,7 @@ var modules = {
 	    else {
 		throw "bad color"
 	    }
-	    return `((10.0 * ${driver} ${op} ${offset}) % 1)`;
+	    return `floor(mod(10.0 * ${driver} ${op} ${offset}, 1.9))`;
 	}
     },
 
