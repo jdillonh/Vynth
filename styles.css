@@ -98,6 +98,37 @@ body {
     border: 3px solid blue;
 }
 
+/* remove input/number spinner 
+https://css-tricks.com/snippets/css/turn-off-number-input-spinners/
+
+TODO make this work of FF
+*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0;
+}
+
+
+input[type=number] {
+    boder: 0;
+    outline: 0;
+    border-color: transparent;
+}
+.module input[type=number] {
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    font-family: inherit;
+    padding-left: 5px;
+    padding-right: -5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: calc( 2.9em - 6px - 5px );
+    height: calc( 2.9em - 6px );
+}
+
 
 #module-canvas {
     height: 32em;

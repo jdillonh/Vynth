@@ -9,10 +9,6 @@
     --color4:  #C7C22C;
 }
 
-input[type=number] {
-    boder: none;
-    outline: none;
-}
 .side-bar {
     z-index: 11;
     position: absolute;

@@ -1,9 +1,8 @@
 function addModule( type ) {
     console.log("adding", type);
-    if( !type ) {
-	throw "no such module \"" + type + "\"";
+    if( !type  ) {
+	throw "no such module type \"" + type + "\"";
     }
-
 
     let newMod = document.importNode(
 	document.getElementById("module-template").content, true
@@ -43,8 +42,17 @@ function addModule( type ) {
     appendedNewMod.className += " " + type.type;
     appendedNewMod.getElementsByClassName("guts")[0]
 	.textContent= type.textContent;
-    makeDraggable(appendedNewMod);
 
+    console.log(type)
+
+    if( modules[type.type].extraHTML ) {
+	let template = document.createElement('template');
+	let extra = modules[type.type].extraHTML.trim(); // Never return a text node of whitespace as the result
+	template.innerHTML = extra;
+	appendedNewMod.appendChild( template.content.firstChild );
+    }
+
+    makeDraggable(appendedNewMod);
 }
 
 
@@ -64,10 +72,35 @@ var modules = {
 	
     },
 
-    // Uniforms 
+    // Uniforms
+    // each module corresponds to a uniform
+    // named after its own module number
+    // (the id of the HTML object that
+    // represents it)
+    // id : "module-1" => u_1, etc.
+    // The module element is passed to
+    // glslSnippet by the compiler.
+    // the unifors are set by the onchange 
+    // attribute of the input element
     knobUnifom : {
+	isUniform : true,
 	inlets : 0,
 	outlets : 1,
+    },
+    numBoxUniform : {
+	isUniform : true,
+	type : "numBoxUniform",
+	inlets : 0,
+	outlets : 1,
+	extraHTML : `<input type="number" step="0.01" value="0.1"
+                      class="uniformValue"
+                      onclick="this.focus()"
+                      onchange="pushUniformUpdate(this)">`,
+	//textContent : "1",
+	glslSnippet : ( color, moduleEl ) => {
+	    let modNum = getModuleIdNum(moduleEl)
+	    return "u_" + modNum;
+	}
     },
 
     // Operators

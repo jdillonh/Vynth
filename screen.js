@@ -48,6 +48,10 @@ void main() {
 let shaderShouldUpdate = false;
 let newShader;
 
+let updateUniforms = [];
+// Key/Value pairs of uniforms to update this frame
+// [ ['u_1', 2.0], ['u_5', -0.3] ]
+
 const screen = ( p ) => {
     var myShad;
     p.setup = function() {
@@ -59,12 +63,19 @@ const screen = ( p ) => {
 
     p.draw = function() {
 	if( shaderShouldUpdate ){
-	    myShad = p.createShader(vertexShader,
-				    newShader );
+	    myShad = p.createShader( vertexShader,
+				     newShader );
 	    shaderShouldUpdate = false;
 	    p.shader(myShad)
 	}
+
 	myShad.setUniform('u_time', p.frameCount);
+	for( let i = 0; i < updateUniforms.length; i++ ) {
+	    console.log( "setting uniform", updateUniforms[i][0], "to", updateUniforms[i][1] );
+	    myShad.setUniform( updateUniforms[i][0], updateUniforms[i][1] );
+	}
+
+	updateUniforms = [];
 	p.rect( -p.width, -p.height, p.width*2, p.height*2);
     }
     p.windowResized = function() {
@@ -76,6 +87,39 @@ const screen = ( p ) => {
 
 let screenP5 = new p5(screen, 'screen');
 
+function pushUniformUpdate( mod ) {
+    updateUniforms.push( ['u_' + getModuleIdNum(mod.parentElement), mod.value] )
+}
+
+// Tells p5 shader handler to update all the uniforms
+// since updating shader happens first, calling this
+// after setting shouldUpdateShader works to initalize
+// all uniforms
+function pushAllUniformUpdates() {
+
+    let uniformEls = [];
+    for( let type in modules ) {
+	if( modules[type].isUniform ) {
+	    console.log("in pushAll", type);
+	    uniformEls.push.apply(
+		uniformEls,
+		[].slice.call(document.getElementsByClassName(type)) );
+	    // .push.apply = concatenate arrays
+	}
+    }
+
+    for( let i = 0; i < uniformEls.length; i++ ) {
+	let curr = uniformEls[i];
+	console.log( getModuleIdNum(curr), curr.getElementsByClassName("uniformValue")[0].value )
+	updateUniforms.push( ['u_' + getModuleIdNum(curr),
+			      curr.getElementsByClassName("uniformValue")[0].value ] )
+    }
+}
+
+// Dom Element => STRING of the number
+function getModuleIdNum(ModuleEl) {
+    return ModuleEl.id.split('-')[1]
+}
 
 function getModuleType(moduleEl) {
     return moduleEl.className.split(' ')[1];
@@ -93,34 +137,6 @@ function getInlets( moduleEl ){
     return moduleEl.getElementsByClassName("inlet");
 }
 
-/* old see next one
-// takes DOM element of module,
-// returns a list of lists of DOM elements of
-// connected modules
-// uses global patchCordGraph
-function getConnected( moduleEl ) {
-let inlets = Array.from(moduleEl.getElementsByClassName("inlet"));
-inlets = inlets.map( el => el.id );
-console.log("this module's ins", inlets)
-inlets = inlets.sort( (a, b) => {
-let aVal = parseInt( a[ a.length-1] )
-let bVal = parseInt( b[ b.length-1] )
-if( a > b ) return 1
-else return -1;
-})
-let connectedEls = [];
-
-for( let i = 0; i < patchCordGraph.length; i++ ) {
-if( inlets.includes( patchCordGraph[i].to )) {
-console.log(patchCordGraph[i]);
-connectedEls.push( getModule( patchCordGraph[i].from ) )
-}
-}
-
-return connectedEls;
-
-}
-*/
 
 function getConnected( moduleEl ) {
     //console.log(moduleEl)
@@ -156,12 +172,30 @@ function compileAll() {
     let curr = eye[0];
     let shaderLine= compile(curr, undefined)
 
+    //get all modules that represent uniforms
+    let uniformEls = [];
+    for( let type in modules ) {
+	if( modules[type].isUniform ) {
+	    //console.log(type);
+	    uniformEls.push.apply(
+		uniformEls,
+		[].slice.call(document.getElementsByClassName(type)) );
+	    // .push.apply = concatenate arrays
+	}
+    }
+    let otherUniforms = '';
+    for( let i =0; i < uniformEls.length; i++ ){
+	otherUniforms += "uniform float u_" + getModuleIdNum(uniformEls[i]) + ";\n"
+    }
+    console.log( uniformEls );
+
     let resultShader = `
 precision mediump float;
 varying vec2 vTexCoord;
 uniform float u_time;
 uniform float u_width;
 uniform float u_height;
+${otherUniforms}
 
 void main() {
   ${shaderLine}
@@ -170,13 +204,14 @@ void main() {
     newShader = resultShader;
     shaderShouldUpdate = true;
     console.log(resultShader);
+    pushAllUniformUpdates();
 
 }
 
 // the 'color' argument represents which inlet of
 // eyeOut this object eventually connects to
 function compile( moduleEl, color ) {
-    console.log( getModuleType( moduleEl ))
+    //console.log( getModuleType( moduleEl ))
     let connected = getConnected( moduleEl );
     let args = [];
     //for( let con of connected ) {
@@ -189,12 +224,10 @@ function compile( moduleEl, color ) {
 	    curr += compile( con[i],
 			     color === undefined ? undefColors[conI]
 			     : color )
-	    console.log( curr )
+	    //console.log( curr )
 	}
 	args.push(curr)
     }
-    console.log(args, 'args')
-    console.log(  ...args , 'spread args')
-    return modules[ getModuleType( moduleEl ) ].glslSnippet(...args, color)
+    return modules[ getModuleType( moduleEl ) ].glslSnippet(...args, color, moduleEl )
 }
 
