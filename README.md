@@ -10,7 +10,8 @@ It presents an interface that will be familiar to users of Max/MSP/Jitter or oth
 environments, and is an easy way to play with graphics programs without having to 
 type them out by hand.
 
-(Keep in mind that this project is very much a WIP and a few UI elements are not yet functional)
+**Keep in mind that this project is very much a WIP**, 
+a few UI elements are not yet functional and things are subject to change.
 
 ## How do I use it?
 Every basic patch starts with 3 things: 
