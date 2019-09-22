@@ -18,6 +18,6 @@ Each module represents a glsl function, uniform value, or other abstraction.
 The compiled shaders are usually pretty simple, you can check them out in the console.
 
 ## Examples
-![screenshot1][examples/screenshot1.png]
+![screenshot1](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot1.png)
 
 
