@@ -61,10 +61,10 @@ The Multiplier module, (***) simply multiplies the two incoming signals. The Num
 (a type of uniform) simply stores a number. You can click it and enter any number you want, positive 
 or negative.
 The most obvious use for theme is to scale drivers. Consider this patch:  
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling1.png" width="100px" height="34px">.
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling1.png" width="300px" height="102px">  
 It creates 2 bands of color on the screen. Maybe you want 4 of them. 
-Simply insert a multiplier and a number box of 2.0 into the patch to scale the X driver. Like this:
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling2.png" width="100px" height="36px">.
+Simply insert a multiplier and a number box of 2.0 into the patch to scale the X driver. Like this:  
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling2.png" width="300px" height="118px">  
 
 More info coming soon.
 
