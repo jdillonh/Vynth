@@ -57,7 +57,7 @@ There must be exactly one output module or the program will not compile.
 
 ### Multiplication and Uniforms
 These two modules go together very well so I will cover them as one topic.
-The Multiplier module, (***) simply multiplies the two incoming signals. The Number Box 
+The Multiplier module, (*\**) simply multiplies the two incoming signals. The Number Box 
 (a type of uniform) simply stores a number. You can click it and enter any number you want, positive 
 or negative.
 The most obvious use for theme is to scale drivers. Consider this patch:  
