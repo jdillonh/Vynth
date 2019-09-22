@@ -2,26 +2,39 @@
 Check it out [here](https://jdillonh.github.io/Vynth/).
 
 ## What is it?
-Vynth (name pending) is a video-synthesizer, inspired by analog video synthesizers, 
+Vynth (name subject to change) is a video-synthesizer, inspired by analog video synthesizers 
+(like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U) sorta), 
 that runs in your browser.
 
-It presents an interface familiar to users of Max/MSP/Jitter or other visual programming 
+It presents an interface that will be familiar to users of Max/MSP/Jitter or other visual programming 
 environments, and is an easy way to play with graphics programs without having to 
 type them out by hand.
 
+(Keep in mind that this project is very much a WIP and a few UI elements are not yet functional)
+
 ## How do I use it?
-exery basic patch starts with 3 things: 
+Every basic patch starts with 3 things: 
 A *Driver*, an *Oscillator*, and the *Output Module*.
-After creating a patch, press the *Reload* (rel) button in the top right corner of the screen.
+After creating a patch by connecting these modules,
+press the *Reload* (rel) button in the top right corner of the screen.
+
+### Patching
+Connecting modules (or patching) is the fundamental interaction of Vynth.
+To create a connection, simply click on an outlet, and then on an inlet. 
+If you click on an outlet and then decide that you don't want to create a connection, 
+simply click in empty space and the pending connection is canceled.
+You can also create connection backwards, by first clicking on an inlet, and then an outlet.
+I plan on adding some better UI for this 
+(where you can actually see the pending cable attached to your mouse).
 
 ### Drivers
 There are 3 types of drivers.
-The X driver, 
+The X driver
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" width="50px" height="50px">
-Y driver,
+Y driver
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/ydriver.png" width="50px" height="50px">
-and Time driver,
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/timedriver.png" width="50px" height="50px">
+and Time driver
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/timedriver.png" width="50px" height="50px">.
 
 Drivers *drive* oscillators, that is, they tell them what dimension to work in.
 X and Y drivers tell the oscillators to set pixels along the X and Y axis respectively, whereas 
@@ -42,16 +55,18 @@ The output module, (or Omega), is the always the last module in the patch. The t
 correspond to the Red, Green and Blue color channels.
 There must be exactly one output module or the program will not compile.
 
+### Multiplication and Uniforms
+These two modules go together very well so I will cover them as one topic.
+The Multiplier module, (***) simply multiplies the two incoming signals. The Number Box 
+(a type of uniform) simply stores a number. You can click it and enter any number you want, positive 
+or negative.
+The most obvious use for theme is to scale drivers. Consider this patch:  
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling1.png" width="100px" height="34px">.
+It creates 2 bands of color on the screen. Maybe you want 4 of them. 
+Simply insert a multiplier and a number box of 2.0 into the patch to scale the X driver. Like this:
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling2.png" width="100px" height="36px">.
+
 More info coming soon.
-
-### Patching
-To create a connection, simply click on an outlet, and then on an inlet. 
-If you click on an outlet and then decide that you don't want to create a connection, 
-simply click in empty space and the pending connection is canceled.
-You can also create connection backwards, by first clicking on an inlet, and then an outlet.
-I plan on adding some better UI for this 
-(where you can actually see the pending cable attached to your mouse).
-
 
 
 ## How does it work?
