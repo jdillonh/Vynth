@@ -19,9 +19,9 @@ There are 3 types of drivers.
 The X driver, 
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" width="50px" height="50px">
 Y driver,
-![ydriver](https://github.com/jdillonh/Vynth/blob/master/examples/ydriver.png)
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/ydriver.png" width="50px" height="50px">
 and Time driver,
-![timedriver](https://github.com/jdillonh/Vynth/blob/master/examples/timedriver.png).
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/timedriver.png" width="50px" height="50px">
 
 Drivers *drive* oscillators, that is, they tell them what dimension to work in.
 X and Y drivers tell the oscillators to set pixels along the X and Y axis respectively, whereas 
