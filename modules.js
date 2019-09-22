@@ -92,7 +92,7 @@ var modules = {
 	type : "numBoxUniform",
 	inlets : 0,
 	outlets : 1,
-	extraHTML : `<input type="number" step="0.01" value="0.1"
+	extraHTML : `<input type="number" step="0.01" value="1.0"
                       class="uniformValue"
                       onclick="this.focus()"
                       onchange="pushUniformUpdate(this)">`,

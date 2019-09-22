@@ -17,5 +17,7 @@ Vynth patches compile into glsl fragment shaders which are layed over a square g
 Each module represents a glsl function, uniform value, or other abstraction. 
 The compiled shaders are usually pretty simple, you can check them out in the console.
 
+## Examples
+![screenshot1][examples/screenshot1.png]
 
 
