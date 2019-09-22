@@ -17,7 +17,7 @@ After creating a patch, press the *Reload* (rel) button in the top right corner 
 ### Drivers
 There are 3 types of drivers.
 The X driver, 
-![xdriver](https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png)
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" width="50px" height="50px">
 Y driver,
 ![ydriver](https://github.com/jdillonh/Vynth/blob/master/examples/ydriver.png)
 and Time driver,
