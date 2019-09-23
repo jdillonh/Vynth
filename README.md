@@ -81,5 +81,6 @@ may produce different results.
 ![screenshot1](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot1.png)
 ![screenshot2](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot2.png)
 ![screenshot3](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot3.png)
+![screenshot4](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot4.png)
 
 
