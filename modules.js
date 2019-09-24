@@ -110,6 +110,14 @@ var modules = {
 	outlets : 1,
 	textContent : '*',
 	glslSnippet : (in1, in2) => {
+	    if( in1 === undefined ) {
+		in1 = 0.0;
+		console.log("multiply must have 2 inlets!")
+	    }
+	    if( in2 === undefined ) {
+		in2 = 0.0;
+		console.log("multiply must have 2 inlets!")
+	    }
 	    return `(${in1} * ${in2})`;
 	}
     },
@@ -168,6 +176,23 @@ var modules = {
 	outlets : 1,
 	textContent : "tri",
 	icon : null,
+	glslSnippet : ( driver, offset, color ) => {
+	    let op = '+';
+	    if( !offset || color == "green") {
+		op = '';
+		offset = '';
+	    }
+	    else if( color == "red" ) {
+		op = '-';
+	    }
+	    else if( color == "blue" ) {
+		op = '+';
+	    }
+	    else {
+		throw "bad color"
+	    }
+	    return `abs(mod(2.0 * ${driver} ${op} ${offset},  2.0) - 1.0)`;
+	}
     },
     sawOsc : {
 	type : "sawOsc",
@@ -224,6 +249,9 @@ var modules = {
 	inlets : 1,
 	outlets : 1,
 	textContent : "rot",
+	glslSnippet : () => {
+	    return ``;
+	},
     },
     kaleidTrans : {
 	inlets : 1,
@@ -232,14 +260,14 @@ var modules = {
     },
     repeatTrans : {
 	type : "repeatTrans",
-	inlets : 1,
+	inlets : 2,
 	outlets : 1,
 	textContent : "rep",
-	glslSnippet : (input) => {
-	    if( !input ) {
-		return '1.0';
+	glslSnippet : ( input, interval, args ) => {
+	    if( interval === undefined || interval === "" ) {
+		interval = "0.5";
 	    }
-	    return ` (${input}/4.0) `;
+	    return `mod(${input}, ${interval})`;
 	}
     },
 
