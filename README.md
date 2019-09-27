@@ -1,6 +1,6 @@
 # Vynth
 Check it out [here](https://jdillonh.github.io/Vynth/).
-
+![collage](https://github.com/jdillonh/Vynth/blob/master/examples/collage.jpg)
 ## What is it?
 Vynth (name subject to change) is a video-synthesizer, inspired by analog video synthesizers 
 (like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U) sorta), 
@@ -8,10 +8,10 @@ that runs in your browser.
 
 It presents an interface that will be familiar to users of Max/MSP/Jitter or other visual programming 
 environments, and is an easy way to play with graphics programs without having to 
-type them out by hand.
+type them out by hand. Similar to [Hydra](https://github.com/ojack/hydra) but designed to be approached
+by people who don't have experience coding.
 
-**Keep in mind that this project is very much a WIP**, 
-a few UI elements are not yet functional and things are subject to change.
+Keep in mind that this project is a WIP and things are subject to change.
 
 ## How do I use it?
 Every basic patch starts with 3 things: 
@@ -68,7 +68,6 @@ Simply insert a multiplier and a number box of 2.0 into the patch to scale the X
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling2.png" width="300px" height="118px">  
 
 More info coming soon.
-
 
 ## How does it work?
 Vynth patches compile into glsl fragment shaders which are laid over a square geometry.
