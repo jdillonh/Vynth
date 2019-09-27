@@ -1,5 +1,5 @@
 # Vynth
-Check it out [here](https://jdillonh.github.io/Vynth/).
+Check it out [here](https://jdillonh.github.io/Vynth/).  
 ![collage](https://github.com/jdillonh/Vynth/blob/master/examples/collage.jpg)
 ## What is it?
 Vynth (name subject to change) is a video-synthesizer, inspired by analog video synthesizers 
