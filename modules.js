@@ -1,3 +1,8 @@
+/**
+ * Adds a module to the canvas
+ * @param {Object} type Type of mdule from the table "modules"
+ * @see modules
+ */
 function addModule( type ) {
     console.log("adding", type);
     if( !type  ) {
@@ -13,7 +18,7 @@ function addModule( type ) {
     let appendedNewMod =
 	document.getElementById("module-x");
     appendedNewMod.id = "module-" + moduleCount;
-    //document.getElementById("module-x-header").id =
+    // document.getElementById("module-x-header").id =
     //    "module-" + moduleCount +"-header";
     appendedNewMod.style.top = "100px";
     appendedNewMod.style.left = "100px";
@@ -55,7 +60,9 @@ function addModule( type ) {
     makeDraggable(appendedNewMod);
 }
 
-
+/**
+ * Data about every type of module
+ */
 var modules = {
     // Out
     eyeOut : {
@@ -244,7 +251,7 @@ var modules = {
     },
 
 
-    // Transformations
+    // Transformations 
     rotateTrans : {
 	inlets : 1,
 	outlets : 1,

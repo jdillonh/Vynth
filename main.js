@@ -1,17 +1,44 @@
+/** 
+ * SVG library interface
+ * @type {Object}
+ */
 var svgDraw = SVG("patch-cord-canvas")
     .size( window.innerWidth, window.innerHeight );
-
+/** 
+ * Number of modules on canvas
+ * @type {number}
+ */
 var moduleCount = 0;
+/** 
+ * Sum of number of inlets on each object on canvas
+ * @type {number}
+ */
 var inletCount = 0;
+/** 
+ * Sum of number of outlets on each object on canvas
+ * @type {number}
+ */
 var outletCount = 0;
+/** 
+ * Number of patch cords (connections) on canvas
+ * @type {number}
+ */
 var patchCordCount = 0;
 
+/**
+ * Graph representing all connections between objects. Objects 
+ * with no connections are ignored.
+ * @type {Object[]}
+ */
 var patchCordGraph = [];
 
-function newPatchCord(from, to) {
-    //let newLine = svgDraw.line(0, 0, 0, 0).stroke({width : 1});
-    //newLine.id("patch-cord-"+patchCordCount)
-    //patchCordCount++;
+/**
+ * Adds a patch cord between two objects on screen, visually and in 
+ * the internal graph.
+ * @param {string} to DomEl ID of destination of cord
+ * @param {string} from DomEl ID of destination of cord
+ */
+function newPatchCord(to, from) {
     let newPath = svgDraw.path(
 	['M', 0, 0]
     ).stroke();
@@ -21,8 +48,8 @@ function newPatchCord(from, to) {
     patchCordCount++;
 
     let newNode = {
-	to : from, // id of to, id of from  (INLET)
-	from : to, // ik this is a mess I'm so sorry (OUTLET)
+	to : to, // id of to, id of from  (INLET)
+	from : from, // ik this is a mess I'm so sorry (OUTLET)
 	id : "patch-cord-" + patchCordCount,
 	//svg : newLine,
 	path: newPath,
@@ -32,15 +59,18 @@ function newPatchCord(from, to) {
     updateCoordinates( [newNode] );
 }
 
+/**
+ * If there is a pending connection, cancel it.
+ */
 function cancelNewPatchCord() {
     mouseState.lookingFor = null;
     mouseState.from = null;
 }
 
-function addTestPatchCord() {
-    newPatchCord("outlet-0", "inlet-2");
-}
-
+/**
+ * Updates the coordinates of patch cord to/from positions.
+ * @param {Object[]} cords Cords whose positions shoule be updated
+ */
 function updateCoordinates(cords) {
     for( let cord of cords ) {
 	let toElement = document.getElementById(cord.to);
@@ -82,6 +112,10 @@ function updateCoordinates(cords) {
     }
 }
 
+/**
+ * Called by mouseDrag, updates cords connected to clicked object.
+ * @param {Object} e Event
+ */
 function updatePatchCords(e) {
     // e is Event from mouseDrag
     // returns a list of patch cord nodes to update
@@ -104,35 +138,11 @@ function updatePatchCords(e) {
     });
     updateCoordinates( shouldBeUpdated );
 }
-//document.getElementById("new-mod-button").onclick =
-//    function(e) {
-//	let newMod = document.importNode(
-//	    document.getElementById("module-template").content, true)
-//	moduleCount++;
-//	document.getElementById("module-canvas")
-//	    .appendChild(newMod);
-//	let appendedNewMod =
-//	    document.getElementById("module-x");
-//	appendedNewMod.id = "module-" + moduleCount;
-//	//document.getElementById("module-x-header").id =
-//	//    "module-" + moduleCount +"-header";
-//	appendedNewMod.style.top = "100px";
-//	appendedNewMod.style.left = "100px";
-//
-//	// give inlets and outlets unique IDs
-//	let ins = appendedNewMod.getElementsByClassName("inlet")
-//	for( let inlet of ins ) {
-//	    inlet.id = "inlet-" + inletCount;
-//	    inletCount++;
-//	}
-//	let outs = appendedNewMod.getElementsByClassName("outlet")
-//	for( let outlet of outs ) {
-//	    outlet.id = "outlet-" + outletCount;
-//	    outletCount++;
-//	}
-//	makeDraggable(appendedNewMod);
-//    }
 
+/**
+ * Makes a DOM element draggable, from W3Schools
+ * @param {Object} elmnt DomEl to make draggable
+ */
 function makeDraggable(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -170,7 +180,11 @@ function makeDraggable(elmnt) {
     }
 }
 
-
+/** 
+ * Helper to makeDraggable, gets x position
+ * @param {Object} ele DomElement
+ * @returns number
+ */
 function getTotalOffsetLeft( ele ) {
     let total = 0
     while( ele ) {
@@ -180,7 +194,11 @@ function getTotalOffsetLeft( ele ) {
     return total;
 }
 
-
+/** 
+ * Helper to makeDraggable, gets y position
+ * @param {Object} ele DomElement
+ * @returns number
+ */
 function getTotalOffsetTop( ele ) {
     let total = 0
     while( ele ) {

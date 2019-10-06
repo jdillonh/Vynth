@@ -1,10 +1,16 @@
 // to handle mouse & making new patch cords
-
+/**
+ * Stores the mouse state
+ * @type {Object}
+ */
 var mouseState = {
     lookingFor : null, //"inlet", "outlet", null
     from : null,
 }
 
+/**
+ * Handle user clicks, make a new connection or don't
+ */
 window.addEventListener("click", function(e) {
     if( e.target.className === "inlet") {
 	if( mouseState.lookingFor === "inlet" ) {
@@ -50,6 +56,9 @@ window.addEventListener("click", function(e) {
     }
 });
 
+/**
+ * If there is a pending connection, cancel it.
+ */
 function clearMouseState() {
     mouseState.lookingFor = null;
     mouseState.from = null;
