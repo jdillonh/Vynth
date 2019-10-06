@@ -11,7 +11,8 @@ environments, and is an easy way to play with graphics programs without having t
 type them out by hand. Similar to [Hydra](https://github.com/ojack/hydra) but designed to be approached
 by people who don't have experience coding.
 
-Keep in mind that this project is a WIP and things are subject to change.
+Keep in mind that this project is a WIP and things are subject to change, 
+but everything listed is fully supported.
 
 ## How do I use it?
 Every basic patch starts with 3 things: 
