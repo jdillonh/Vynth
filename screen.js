@@ -1,30 +1,31 @@
-/*
-  screen.js manages the p5.js interface,
-  loading shaders, drawing to canvas, etc.
+/**
+ * @fileOverview screen.js manages the p5.js interface, loading shaders, drawing to canvas, etc.
 */
 
-
+/**
+ * A default vertex shader
+ * @type {string}
+ */
 const vertexShader = `
-// our vertex data
 attribute vec3 aPosition;
 attribute vec2 aTexCoord;
 
-// lets get texcoords just for fun! 
 varying vec2 vTexCoord;
 
 void main() {
-  // copy the texcoords
   vTexCoord = aTexCoord;
 
-  // copy the position data into a vec4, using 1.0 as the w component
   vec4 positionVec4 = vec4(aPosition, 1.0);
   positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
 
-  // send the vertex information on to the fragment shader
   gl_Position = positionVec4;
 }
 `;
 
+/**
+ * The base fragment shader that becomes the custom shader
+ * @type {string}
+ */
 const defaultFrag = `
 precision mediump float;
 
@@ -45,13 +46,27 @@ void main() {
 }
 `;
 
+/**
+ * should the shader be changes this frame?
+ * @type {bool}
+ */
 let shaderShouldUpdate = false;
+/**
+ * stores the shader to be set on update
+ * @type {string}
+ */
 let newShader;
-
+/**
+ * Queue of Key/Value pairs of uniforms to update next frame
+ * @type {Array[]} 
+ * [ ['u_1', 2.0], ['u_5', -0.3] ]
+ */
 let updateUniforms = [];
-// Key/Value pairs of uniforms to update this frame
-// [ ['u_1', 2.0], ['u_5', -0.3] ]
 
+/**
+ * Interface to p5.js
+ * @type {Object} 
+ */
 const screen = ( p ) => {
     var myShad;
     p.setup = function() {
@@ -71,7 +86,6 @@ const screen = ( p ) => {
 
 	myShad.setUniform('u_time', p.frameCount);
 	for( let i = 0; i < updateUniforms.length; i++ ) {
-	    console.log( "setting uniform", updateUniforms[i][0], "to", updateUniforms[i][1] );
 	    myShad.setUniform( updateUniforms[i][0], updateUniforms[i][1] );
 	}
 
@@ -87,6 +101,10 @@ const screen = ( p ) => {
 
 let screenP5 = new p5(screen, 'screen');
 
+/** 
+ * Adds uniform to update Queue
+ * @param {Object} mod HTML element of uniform module
+ */
 function pushUniformUpdate( mod ) {
     updateUniforms.push( ['u_' + getModuleIdNum(mod.parentElement), mod.value] )
 }
@@ -95,12 +113,14 @@ function pushUniformUpdate( mod ) {
 // since updating shader happens first, calling this
 // after setting shouldUpdateShader works to initalize
 // all uniforms
+/** 
+ * Pushes an update to the Queue for all uniform values in the patch
+ * Called on lading a new shader, when all unifroms have not been set yet.
+ */
 function pushAllUniformUpdates() {
-
     let uniformEls = [];
     for( let type in modules ) {
 	if( modules[type].isUniform ) {
-	    console.log("in pushAll", type);
 	    uniformEls.push.apply(
 		uniformEls,
 		[].slice.call(document.getElementsByClassName(type)) );
@@ -110,47 +130,64 @@ function pushAllUniformUpdates() {
 
     for( let i = 0; i < uniformEls.length; i++ ) {
 	let curr = uniformEls[i];
-	console.log( getModuleIdNum(curr), curr.getElementsByClassName("uniformValue")[0].value )
 	updateUniforms.push( ['u_' + getModuleIdNum(curr),
 			      curr.getElementsByClassName("uniformValue")[0].value ] )
     }
 }
 
 // Dom Element => STRING of the number
+/** 
+ * Gives the id number of a module
+ * @param {Object} ModuleEl DomEl of the module
+ * @returns {string} id number as string
+ */
 function getModuleIdNum(ModuleEl) {
     return ModuleEl.id.split('-')[1]
 }
-
+/**
+ * Gives the type of a module
+ * @param {Object} ModuleEl DomEl of the module
+ * @returns {string} module type
+ * @see modules.js
+ */
 function getModuleType(moduleEl) {
     return moduleEl.className.split(' ')[1];
 }
 
-// inlet/outlet ID => Module DOM element & Type
+/**
+ * Gives the HTML Object of a module from its inlet or outlet
+ * @param {string} inOutId HTML id of inlet or outlet
+ * @returns {Object} 
+ */
 function getModule(inOutId) {
     let inout = document.getElementById(inOutId);
     let el = inout.parentElement.parentElement;
     return el
 }
 
-// Module Dom element => HTMLCollection of Inlets
+/**
+ * Gives the inlets of a module
+ * @param {Object} moduleEl HTML element of module
+ * @returns {Object[]} Array of HTML elements of inlets 
+ */
 function getInlets( moduleEl ){
     return moduleEl.getElementsByClassName("inlet");
 }
 
-
+/**
+ * Gives all modules immediately connected to the given module
+ * @param {Object} moduleEl DomEl of module
+ * @returns {Object[]} [] of DomEls of connected modules
+ */
 function getConnected( moduleEl ) {
-    //console.log(moduleEl)
     let inlets = Array.from(moduleEl.getElementsByClassName("inlet"));
     inlets = inlets.map( el => el.id );
-    //console.log("this module's ins", inlets)
 
     let result = []
     for( let inl of inlets ) {
 	result.push( [] ); //holds the connectiosn to curr inlet
 	for( let i = 0; i < patchCordGraph.length; i++ ) {
-	    //console.log( patchCordGraph[i])
 	    if( inl == patchCordGraph[i].to ) {
-		//console.log(patchCordGraph[i]);
 		result[result.length-1].push( getModule( patchCordGraph[i].from ) )
 	    }
 	}	
@@ -159,8 +196,11 @@ function getConnected( moduleEl ) {
 }
 
 
-// build a new GLSL frag shader
-// from the patch
+/**
+ * Builds a new GLSL fragment shader from the entire patch, 
+ * and sets that shader to be the current shader.
+ * Pushes uniform updates.
+ */
 function compileAll() {
     let uniforms = [];
 
@@ -170,13 +210,12 @@ function compileAll() {
     }
 
     let curr = eye[0];
-    let shaderLine= compile(curr, undefined)
+    let shaderLine = compile( curr, undefined);
 
     //get all modules that represent uniforms
     let uniformEls = [];
     for( let type in modules ) {
 	if( modules[type].isUniform ) {
-	    //console.log(type);
 	    uniformEls.push.apply(
 		uniformEls,
 		[].slice.call(document.getElementsByClassName(type)) );
@@ -187,7 +226,6 @@ function compileAll() {
     for( let i =0; i < uniformEls.length; i++ ){
 	otherUniforms += "uniform float u_" + getModuleIdNum(uniformEls[i]) + ";\n"
     }
-    console.log( uniformEls );
 
     let resultShader = `
 precision mediump float;
@@ -203,18 +241,23 @@ void main() {
 `;
     newShader = resultShader;
     shaderShouldUpdate = true;
-    console.log(resultShader);
+    console.log("here is your shader:", resultShader);
     pushAllUniformUpdates();
 
 }
 
 // the 'color' argument represents which inlet of
 // eyeOut this object eventually connects to
+/** 
+ * Compiles the patch into GLSL starting at a given module
+ * @param {Object} moduleEl DomEl of starting module
+ * @param {string} color "red" "green" or "blue", current color channel
+ * @returns {string}
+ * @see compileAll
+ */
 function compile( moduleEl, color ) {
-    //console.log( getModuleType( moduleEl ))
     let connected = getConnected( moduleEl );
     let args = [];
-    //for( let con of connected ) {
     let undefColors = ['red', 'green', 'blue'];
     for( let conI = 0; conI < connected.length; conI++) {
 	let con = connected[conI]
@@ -224,7 +267,6 @@ function compile( moduleEl, color ) {
 	    curr += compile( con[i],
 			     color === undefined ? undefColors[conI]
 			     : color )
-	    //console.log( curr )
 	}
 	args.push(curr)
     }

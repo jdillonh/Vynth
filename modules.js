@@ -4,7 +4,6 @@
  * @see modules
  */
 function addModule( type ) {
-    console.log("adding", type);
     if( !type  ) {
 	throw "no such module type \"" + type + "\"";
     }
@@ -48,8 +47,6 @@ function addModule( type ) {
     appendedNewMod.getElementsByClassName("guts")[0]
 	.textContent= type.textContent;
 
-    console.log(type)
-
     if( modules[type.type].extraHTML ) {
 	let template = document.createElement('template');
 	let extra = modules[type.type].extraHTML.trim(); // Never return a text node of whitespace as the result
@@ -62,6 +59,7 @@ function addModule( type ) {
 
 /**
  * Data about every type of module
+ * @function glslSnippet tells the compiler what GLSL code this module corresponds to
  */
 var modules = {
     // Out
@@ -252,7 +250,7 @@ var modules = {
 
 
     // Transformations 
-    rotateTrans : {
+    rotateTrans : { //NYI
 	inlets : 1,
 	outlets : 1,
 	textContent : "rot",
@@ -260,7 +258,7 @@ var modules = {
 	    return ``;
 	},
     },
-    kaleidTrans : {
+    kaleidTrans : { //NYI
 	inlets : 1,
 	outlets : 1,
 	textContent : "kal",
