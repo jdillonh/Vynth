@@ -231,6 +231,10 @@ var modules = {
 	icon : null,
 	glslSnippet : ( driver, offset, color ) => {
 	    let op = '+';
+	    if( !driver ) {
+		driver = "0.0";
+	    }
+
 	    if( !offset || color == "green") {
 		op = '';
 		offset = '';
