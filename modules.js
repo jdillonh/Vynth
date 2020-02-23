@@ -244,14 +244,6 @@ var modules = {
     },
 
 };
-/*
-function oscVerifyDriver(driver, color) {
-    if( driver === null ) {
-	return "0.0";
-    }
-    return driver;
-}
-*/
 
 function oscVerifyInputs(driver, offset, color ) {
     if (driver === null ) {
