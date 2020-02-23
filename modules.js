@@ -158,20 +158,11 @@ var modules = {
 	textContent : "sin",
 	icon : null,
 	glslSnippet : ( driver, offset, color ) => {
-	    let op = '+';
-	    if( !offset || color == "green") {
-		op = '';
-		offset = '';
-	    }
-	    else if( color == "red" ) {
-		op = '-';
-	    }
-	    else if( color == "blue" ) {
-		op = '+';
-	    }
-	    else {
-		throw "bad color"
-	    }
+	    let inputs = oscVerifyInputs(driver, offset, color);
+	    driver = inputs.driver;
+	    offset = inputs.offset;
+	    let op = inputs.op;
+
 	    return `((sin( 10.0 * ${driver} ${op} ${offset} )+1.0)/2.0)`;
 	},
     },
@@ -182,20 +173,12 @@ var modules = {
 	textContent : "tri",
 	icon : null,
 	glslSnippet : ( driver, offset, color ) => {
-	    let op = '+';
-	    if( !offset || color == "green") {
-		op = '';
-		offset = '';
-	    }
-	    else if( color == "red" ) {
-		op = '-';
-	    }
-	    else if( color == "blue" ) {
-		op = '+';
-	    }
-	    else {
-		throw "bad color"
-	    }
+
+	    let inputs = oscVerifyInputs(driver, offset, color);
+	    driver = inputs.driver;
+	    offset = inputs.offset;
+	    let op = inputs.op;
+
 	    return `abs(mod(2.0 * ${driver} ${op} ${offset},  2.0) - 1.0)`;
 	}
     },
@@ -206,20 +189,12 @@ var modules = {
 	textContent : "saw",
 	icon : null,
 	glslSnippet : ( driver, offset, color ) => {
-	    let op = '+';
-	    if( !offset || color == "green") {
-		op = '';
-		offset = '';
-	    }
-	    else if( color == "red" ) {
-		op = '-';
-	    }
-	    else if( color == "blue" ) {
-		op = '+';
-	    }
-	    else {
-		throw "bad color"
-	    }
+
+	    let inputs = oscVerifyInputs(driver, offset, color);
+	    driver = inputs.driver;
+	    offset = inputs.offset;
+	    let op = inputs.op;
+
 	    return `fract( 10.0 * ${driver} ${op} ${offset} )`;
 	}
     },
@@ -230,24 +205,12 @@ var modules = {
 	textContent : "sqr",
 	icon : null,
 	glslSnippet : ( driver, offset, color ) => {
-	    let op = '+';
-	    if( !driver ) {
-		driver = "0.0";
-	    }
 
-	    if( !offset || color == "green") {
-		op = '';
-		offset = '';
-	    }
-	    else if( color == "red" ) {
-		op = '-';
-	    }
-	    else if( color == "blue" ) {
-		op = '+';
-	    }
-	    else {
-		throw "bad color"
-	    }
+	    let inputs = oscVerifyInputs(driver, offset, color);
+	    driver = inputs.driver;
+	    offset = inputs.offset;
+	    let op = inputs.op;
+
 	    return `floor(mod(10.0 * ${driver} ${op} ${offset}, 1.9))`;
 	}
     },
@@ -281,3 +244,37 @@ var modules = {
     },
 
 };
+/*
+function oscVerifyDriver(driver, color) {
+    if( driver === null ) {
+	return "0.0";
+    }
+    return driver;
+}
+*/
+
+function oscVerifyInputs(driver, offset, color ) {
+    if (driver === null ) {
+	driver = "0.0";
+    }
+
+    let op = '+';
+
+    if(!offset || color == "green" ) {
+	offset = "0.0";
+    }
+    else if( color == "red" ) {
+	op = '-';
+    }
+    else if( color == "blue" ) {
+	op = '+';
+    }
+    else {
+	throw "bad color:" + color;
+    }
+
+    return {driver : driver,
+	    offset : offset,
+	    op : op};
+}
+
