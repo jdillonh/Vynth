@@ -12,6 +12,10 @@ var mouseState = {
  * Handle user clicks, make a new connection or don't
  */
 window.addEventListener("click", function(e) {
+    if (e.target.id === "recording-menu-bg") {
+	e.target.style.display = "none";
+    }
+
     if( e.target.className === "inlet") {
 	if( mouseState.lookingFor === "inlet" ) {
 	    newPatchCord( e.target.id, mouseState.from.id );
