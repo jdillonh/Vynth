@@ -115,14 +115,15 @@ var modules = {
 	outlets : 1,
 	textContent : '*',
 	glslSnippet : (in1, in2) => {
-	    if( in1 === undefined ) {
+	    if( in1 === undefined || in1 === '' ) {
 		in1 = 0.0;
 		console.log("multiply must have 2 inlets!")
 	    }
-	    if( in2 === undefined ) {
+	    if( in2 === undefined || in2 === '' ) {
 		in2 = 0.0;
 		console.log("multiply must have 2 inlets!")
 	    }
+	    console.log(in1, in2);
 	    return `(${in1} * ${in2})`;
 	}
     },
