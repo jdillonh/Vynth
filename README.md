@@ -2,7 +2,7 @@
 Check it out [here](https://jdillonh.github.io/Vynth/).  
 ![collage](https://github.com/jdillonh/Vynth/blob/master/examples/collage.jpg)
 ## What is it?
-Vynth (name subject to change) is a video-synthesizer, inspired by analog video synthesizers 
+Vynth is a video-synthesizer, inspired by analog video synthesizers 
 (like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U) sorta), 
 that runs in your browser.
 
