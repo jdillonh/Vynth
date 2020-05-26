@@ -43,7 +43,7 @@ X and Y drivers tell the oscillators to set pixels along the X and Y axis respec
 the Time driver sets every pixel according to the change of time.
 
 ### Oscillators
-There are three types of oscillators: Sine (sin), Triangle (tri), Sawtooth (saw), and Square (sqr).
+There are four types of oscillators: Sine (sin), Triangle (tri), Sawtooth (saw), and Square (sqr).
 Anyone familiar with audio synthesis is probably aware of what these look like, but here's a graphic 
 for everyone else:
 ![waveshapes](https://github.com/jdillonh/Vynth/blob/master/examples/waveshapes.png)
