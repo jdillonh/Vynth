@@ -63,6 +63,9 @@ let newShader;
  */
 let updateUniforms = [];
 
+let capturers = [];
+let canvasEl;
+
 /**
  * Interface to p5.js
  * @type {Object} 
@@ -70,7 +73,8 @@ let updateUniforms = [];
 const screen = ( p ) => {
     var myShad;
     p.setup = function() {
-	p.createCanvas( window.innerWidth, window.innerHeight, p.WEBGL );
+	let p5Can  = p.createCanvas( window.innerWidth, window.innerHeight, p.WEBGL );
+	canvasEl = p5Can.canvas;
 	myShad = p.createShader( vertexShader,
 				 defaultFrag );
 	p.shader( myShad );
@@ -91,6 +95,17 @@ const screen = ( p ) => {
 
 	updateUniforms = [];
 	p.rect( -p.width, -p.height, p.width*2, p.height*2);
+
+	let finished = []
+	for( let i = 0; i < capturers.length; i++ ) {
+	    if (!capturers[i].update(canvasEl)) {
+		finished.push(i)
+	    }
+	}
+	for( let i = 0; i < finished.length; i++ ) {
+	    capturers.splice(i, 1);
+	}
+
     }
     p.windowResized = function() {
 	p.resizeCanvas(p.windowWidth, p.windowHeight);

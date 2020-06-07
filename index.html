@@ -15,7 +15,31 @@
     </head>
 
     <body>
+	<!-- recording modal -->
+	<div id="recording-menu-bg" class="modal">
+	    <div id="recording-menu">
+		<span class="close" onClick="closeRecordingMenu()">&times;</span>
+		<form>
+		    <div class="menu-item">
+			Format: <br> 
+			<label for="png-set"> png set </label> <input id="png-set" type="radio" name="format" checked> <br>
+			<label for="gif"> gif </label> <input id="gif" type="radio" name="format"> <br>
+		    </div>
+		    <div class="menu-item">
+			<label for="frame-count"> # of Frames: </label> <input id="frame-count" type="number" value="120"> <br>
+		    </div>
 
+		    <div class="menu-item">
+			<label for="verbose">Verbose (console output):</label>
+			<input id="verbose" type="checkbox"> <br>
+		    </div>
+		    <div class="menu-item">
+			<button type="button" id="go" onclick="startRender()"> Start Recording </button>
+		    </div>
+		    Frame capture from <a href="https://github.com/spite/ccapture.js/"> CCapture.js </a>.
+		</form>
+	    </div>
+	</div>
 	
 	<!-- control bars -->
 	<ul class="side-bar">
@@ -83,6 +107,10 @@
 		onclick="compileAll()">
 		rel
 	    </li>
+	    <li id="record" class="bar-item top-bar-item"
+		onclick="openRecordingMenu()">
+		rec
+	    </li>
 	</ul>
 
 
@@ -98,10 +126,12 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 	<script src="lib/svg.js"></script>
 	<script src="lib/p5.min.js"></script>
+	<script src="lib/CCapture.min.js"></script>
 	<script src="mouse.js"></script>
 	<script src="main.js"></script>
 	<script src="modules.js"></script>
 	<script src="screen.js"></script>
+	<script src="recording.js"></script>
 
 
     </body>
