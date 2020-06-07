@@ -68,7 +68,8 @@ It creates 2 bands of color on the screen. Maybe you want 4 of them.
 Simply insert a multiplier and a number box of 2.0 into the patch to scale the X driver. Like this:  
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling2.png" width="300px" height="118px">  
 
-More info coming soon.
+## Recording
+Recording your patch is now supported! Click the rec box.
 
 ## How does it work?
 Vynth patches compile into glsl fragment shaders which are laid over a square geometry.
