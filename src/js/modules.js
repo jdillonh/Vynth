@@ -55,6 +55,47 @@ function addModule( type ) {
     }
 
     makeDraggable(appendedNewMod);
+
+    appendedNewMod.oncontextmenu = (e) => {
+	e.preventDefault();
+	removeModule(appendedNewMod.id);
+	return false;
+    }
+}
+
+/**
+ * Remove a module from the UI and the graph
+ * @param {String} moduleID DomEl id of the module to remove
+ */
+function removeModule(moduleID) {
+    let domEl = document.getElementById(moduleID);
+
+    // get inputs and outputs in Obj 
+    let inIds = Array.from(domEl.getElementsByClassName('inlet-wrapper')[0].childNodes)
+	.map( (i) => i.id )
+	.filter( (i) => i !== undefined );
+    let inObj = {};
+    inIds.forEach( (i) => { inObj[i] = true } );
+    
+    let outIds = Array.from(domEl.getElementsByClassName('outlet-wrapper')[0].childNodes)
+	.map( (i) => i.id )
+	.filter( (i) => i !== undefined );
+    let outObj = {};
+    outIds.forEach( (i) => { outObj[i] = true } );
+
+    // match inputs and outputs, delete if theres a match
+    patchCordGraph = patchCordGraph.filter(
+	(currConnection) => {
+	    let keepMe = true;
+	    if( currConnection.to in inObj ||
+		currConnection.from in outObj ) {
+		keepMe = false;
+		deletePatchCord(currConnection.id);
+	    }
+	    return keepMe;
+	}
+    );
+    domEl.parentNode.removeChild(domEl);
 }
 
 /**
@@ -85,7 +126,7 @@ var modules = {
     // id : "module-1" => u_1, etc.
     // The module element is passed to
     // glslSnippet by the compiler.
-    // the unifors are set by the onchange 
+    // the uniforms are set by the onchange 
     // attribute of the input element
     knobUnifom : {
 	isUniform : true,
@@ -116,11 +157,11 @@ var modules = {
 	textContent : '*',
 	glslSnippet : (in1, in2) => {
 	    if( in1 === undefined || in1 === '' ) {
-		in1 = 0.0;
+		in1 = '0.0';
 		console.log("multiply must have 2 inlets!")
 	    }
 	    if( in2 === undefined || in2 === '' ) {
-		in2 = 0.0;
+		in2 = '0.0';
 		console.log("multiply must have 2 inlets!")
 	    }
 	    console.log(in1, in2);

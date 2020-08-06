@@ -9,6 +9,7 @@ var svgDraw = SVG("patch-cord-canvas")
  * @type {number}
  */
 var moduleCount = 0;
+
 /** 
  * Sum of number of inlets on each object on canvas
  * @type {number}
@@ -20,6 +21,7 @@ var inletCount = 0;
  */
 var outletCount = 0;
 /** 
+
  * Number of patch cords (connections) on canvas
  * @type {number}
  */
@@ -32,31 +34,58 @@ var patchCordCount = 0;
  */
 var patchCordGraph = [];
 
+var pendingPatchCord = null;
+
 /**
  * Adds a patch cord between two objects on screen, visually and in 
  * the internal graph.
  * @param {string} to DomEl ID of destination of cord
  * @param {string} from DomEl ID of destination of cord
  */
-function newPatchCord(to, from) {
+function newPatchCord(to, from, isPending) {
+    isPending = isPending || false; // optional param
+    patchCordCount++;
+
     let newPath = svgDraw.path(
 	['M', 0, 0]
     ).stroke();
     
     newPath.id("patch-cord-"+patchCordCount)
     newPath.addClass("patch-cord")
-    patchCordCount++;
 
     let newNode = {
-	to : to, // id of to, id of from  (INLET)
-	from : from, // ik this is a mess I'm so sorry (OUTLET)
+	to : to, // id of to, id of from INLET dom el
+	from : from, // id of from, if of OUTLET dom el
 	id : "patch-cord-" + patchCordCount,
 	//svg : newLine,
 	path: newPath,
     }
-    patchCordGraph.push( newNode );
+
+    let newEl = document.getElementById(newNode.id);
+    // aka right click
+    newEl.oncontextmenu = (e) => {
+	e.preventDefault();
+	deletePatchCord(newNode.id);
+	return false;
+    }
+
+    isPending ?
+	pendingPatchCord = newNode :
+	patchCordGraph.push( newNode );
 
     updateCoordinates( [newNode] );
+}
+
+/**
+ * Delete patch cord from the graph,
+ * remove it from nodes that it connects
+ * @param {String} removeID DomEl id of the patch cord to remove
+ */
+function deletePatchCord(removeID) {
+    patchCordGraph = patchCordGraph.filter(
+	(currConnection) => currConnection.id !== removeID );
+    let domEl = document.getElementById(removeID);
+    domEl.parentNode.removeChild(domEl);
 }
 
 /**
@@ -68,6 +97,17 @@ function cancelNewPatchCord() {
 }
 
 /**
+ * Remove pending patch cord from DOM
+ */
+function cancelPendingPatchCord() {
+    if(pendingPatchCord !== null) {
+	let el = document.getElementById(pendingPatchCord.id);
+	el.parentNode.removeChild(el);
+	pendingPatchCord = null;
+    }
+}
+
+/**
  * Updates the coordinates of patch cord to/from positions.
  * @param {Object[]} cords Cords whose positions shoule be updated
  */
@@ -76,17 +116,39 @@ function updateCoordinates(cords) {
 	let toElement = document.getElementById(cord.to);
 	let fromElement = document.getElementById(cord.from);
 
+	let x1;
+	let y1;
+	let x2;
+	let y2;
 
-	let x1 = getTotalOffsetLeft(fromElement) + 8,
-	    y1 = getTotalOffsetTop(fromElement) + 8,
+	if( fromElement === null ) {
+	    x1 = mouseState.xPos;
+	    y1 = mouseState.yPos;
+	}
+	else {
+	    x1 = getTotalOffsetLeft(fromElement) + 8;
+	    y1 = getTotalOffsetTop(fromElement) + 8;
+	}
+
+	if( toElement === null ) {
+	    x2 = mouseState.xPos;
+	    y2 = mouseState.yPos;
+	}
+	else {
 	    x2 = getTotalOffsetLeft(toElement) + 8,
 	    y2 = getTotalOffsetTop(toElement) + 8;
+	}
+
+	//x1 = getTotalOffsetLeft(fromElement) + 8,
+	//y1 = getTotalOffsetTop(fromElement) + 8,
+	//x2 = getTotalOffsetLeft(toElement) + 8,
+	//y2 = getTotalOffsetTop(toElement) + 8;
+
 	//cord.svg.plot(x1, y1, x2, y2)
 
 	let bezDist = 40;
 	cord.path.plot(
 	    [
-		
 		['M', String(x1), String(y1)],
 		['C', String(x1 + bezDist), String(y1),
 		 String(x2 - bezDist), String(y2),
@@ -113,12 +175,21 @@ function updateCoordinates(cords) {
 }
 
 /**
+ * Called by mousemove (mouse.js), updates the pending patch cord
+ * @param {Object} e Event
+ */
+function updatePendingPatchCord() {
+    if( pendingPatchCord !== null ) {
+	updateCoordinates([pendingPatchCord]);
+    }
+}
+
+/**
  * Called by mouseDrag, updates cords connected to clicked object.
  * @param {Object} e Event
  */
 function updatePatchCords(e) {
     // e is Event from mouseDrag
-    // returns a list of patch cord nodes to update
     let module = e.target.parentElement;
     if( !module ) { return; }
     let inlets = module.getElementsByClassName("inlet")

@@ -1,3 +1,10 @@
+:root {
+    --hl-color:#FADB3D;
+    --color2:  #D1CE6D;
+    --color3:  #3796C7;
+    --color4:  #C7C22C;
+}
+
 body {
     margin: 0;
     text-align: center;
@@ -26,6 +33,9 @@ body {
     cursor: move;
     width: 2.9em;
     height: 2.9em;
+}
+.module:hover {
+    border-color: var(--hl-color);
 }
 
 .module-header {
@@ -150,6 +160,10 @@ input[type=number] {
     z-index: 99;
 }
 
+.patch-cord:hover {
+    stroke: var(--hl-color);
+}
+
 #screen {
     z-index: -1;
     position: absolute;
@@ -159,11 +173,6 @@ input[type=number] {
     top: 0px;
     left: 0px;
 }
-
-.modal {
-
-}
-
 
 .modal {
     display: none;
