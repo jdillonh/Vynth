@@ -75,6 +75,11 @@ const screen = ( p ) => {
     p.setup = function() {
 	let p5Can  = p.createCanvas( window.innerWidth, window.innerHeight, p.WEBGL );
 	canvasEl = p5Can.canvas;
+	canvasEl.oncontextmenu = (e) => {
+	    // prevent annoying menu when you mis-click
+	    e.preventDefault();
+	    return false;
+	};
 	myShad = p.createShader( vertexShader,
 				 defaultFrag );
 	p.shader( myShad );

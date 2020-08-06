@@ -4,6 +4,13 @@
  */
 var svgDraw = SVG("patch-cord-canvas")
     .size( window.innerWidth, window.innerHeight );
+
+svgDraw.node.oncontextmenu = (e) => {
+    // prevent annoying menu when you mis-click
+    e.preventDefault();
+    return false;
+};
+
 /** 
  * Number of modules on canvas
  * @type {number}

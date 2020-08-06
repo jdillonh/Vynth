@@ -162,6 +162,8 @@ input[type=number] {
 
 .patch-cord:hover {
     stroke: var(--hl-color);
+    stroke-width: 8;
+    transition: 0.1s;
 }
 
 #screen {
