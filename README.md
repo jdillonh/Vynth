@@ -11,23 +11,26 @@ environments, and is an easy way to play with graphics programs without having t
 type them out by hand. Similar to [Hydra](https://github.com/ojack/hydra) but designed to be approached
 by people who don't have experience coding.
 
-Keep in mind that this project is a WIP and things are subject to change, 
-but everything listed is fully supported.
-
 ## How do I use it?
+Basically you make some blocks, connect them and then press *REL* (Reload)
 Every basic patch starts with 3 things: 
 A *Driver*, an *Oscillator*, and the *Output Module*.
 After creating a patch by connecting these modules,
 press the *Reload* (rel) button in the top right corner of the screen.
 
+## Modules
+Modules are little boxes that represent an input, function or transformation. To add one to your patch 
+click it's cooresponding box on the left or top panels. To remove a module right click it.
+Making patches in Vynth means connecting 
+
 ### Patching
-Connecting modules (or patching) is the fundamental interaction of Vynth.
+Connecting modules (or patching) is the main interaction of Vynth.
 To create a connection, simply click on an outlet, and then on an inlet. 
 If you click on an outlet and then decide that you don't want to create a connection, 
 simply click in empty space and the pending connection is canceled.
 You can also create connection backwards, by first clicking on an inlet, and then an outlet.
-I plan on adding some better UI for this 
-(where you can actually see the pending cable attached to your mouse).
+
+You can delete a connection by right clicking a cable.
 
 ### Drivers
 There are 3 types of drivers.

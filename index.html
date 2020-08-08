@@ -21,6 +21,7 @@
 		<span class="close" onClick="closeRecordingMenu()">&times;</span>
 		<form>
 		    <div class="menu-item">
+			~ Recording ~ <br>
 			Format: <br> 
 			<label for="png-set"> png set </label> <input id="png-set" type="radio" name="format" checked> <br>
 			<label for="gif"> gif </label> <input id="gif" type="radio" name="format"> <br>
@@ -43,44 +44,44 @@
 	
 	<!-- control bars -->
 	<ul class="side-bar">
-	    <li class="bar-item">
+	    <li class="bar-item menu-open" id="collapse-menu">
 		X
 	    </li>
-	    <li id="x" class="bar-item"
-		onclick="addModule(modules.xDriver)">
-		&#8658
-	    </li>
-	    <li id="y" class="bar-item"
-		onclick="addModule(modules.yDriver)">
-		&#8658
-	    </li>
-	    <li id="time" class="bar-item"
-		onclick="addModule(modules.timeDriver)">
-		<i> t </i>
-	    </li>
-	    <li id="time" class="bar-item"
+	    <li id="mult" class="bar-item transform"
 		onclick="addModule(modules.multOp)">
 		&#10033;
 	    </li>
-	    <li id="sin" class="bar-item"
+	    <li id="sin" class="bar-item transform"
 		onclick="addModule(modules.sinOsc)">
 		sin
 	    </li>
-	    <li id="tri" class="bar-item"
+	    <li id="tri" class="bar-item transform"
 		onclick="addModule(modules.triOsc)">
 		tri
 	    </li>
-	    <li id="saw" class="bar-item"
+	    <li id="saw" class="bar-item transform"
 		onclick="addModule(modules.sawOsc)">
 		saw
 	    </li>
-	    <li id="sqr" class="bar-item"
+	    <li id="sqr" class="bar-item transform"
 		onclick="addModule(modules.sqrOsc)">
 		sqr
 	    </li>
 	</ul>
 	<ul class="top-bar">
-	    <li id="num" class="bar-item top-bar-item"
+	    <li id="x" class="bar-item top-bar-item input"
+		onclick="addModule(modules.xDriver)">
+		&#8658
+	    </li>
+	    <li id="y" class="bar-item top-bar-item input"
+		onclick="addModule(modules.yDriver)">
+		&#8658
+	    </li>
+	    <li id="time" class="bar-item top-bar-item input"
+		onclick="addModule(modules.timeDriver)">
+		<i> t </i>
+	    </li>
+	    <li id="num" class="bar-item top-bar-item input" 
 		onclick="addModule(modules.numBoxUniform)">
 		1
 	    </li>
@@ -92,12 +93,12 @@
 	    <li id="kal" class="bar-item top-bar-item">
 		&#11041;
 	    </li>
-	    -->
 	    <li id="rep" class="bar-item top-bar-item"
 		onClick="addModule(modules.repeatTrans)">
 		rep
 	    </li>
-	    <li id="eye" class="bar-item top-bar-item"
+	    -->
+	    <li id="eye" class="bar-item top-bar-item output"
 		onclick="addModule(modules.eyeOut)">
 		&#x3a9;
 	    </li>

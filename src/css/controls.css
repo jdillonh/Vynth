@@ -7,7 +7,10 @@
     --color2:  #D1CE6D;
     --color3:  #3796C7;
     --color4:  #C7C22C;
+    --color5:  #DB7A00;
+    --color6:  #E33F3D; 
 }
+
 
 .side-bar {
     z-index: 11;
@@ -28,12 +31,43 @@
     text-align: center;
     vertical-align: middle;
     line-height: 60px;
-
 }
 
 .bar-item:hover {
     border-color: var(--hl-color);
     color: var(--hl-color);
+}
+
+.bar-item.input:hover {
+    border-color: var(--color5);
+    color: var(--color5);
+}
+
+.bar-item.transform:hover {
+    border-color: var(--color4);
+    color: var(--color4);
+}
+
+.bar-item.output:hover {
+    border-color: var(--color6);
+    color: var(--color6);
+}
+
+#collapse-menu.menu-hidden {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#collapse-menu.menu-hidden:hover {
+    border-color: var(--color3);
+    color: var(--color3);
+    opacity: 1; 
+    transition: 0.5s;
+}
+
+#collapse-menu.menu-open:hover {
+    border-color: var(--color3);
+    color: var(--color3);
 }
 
 .top-bar {

@@ -68,7 +68,7 @@ let canvasEl;
 
 /**
  * Interface to p5.js
- * @type {Object} 
+ * @type {Function} 
  */
 const screen = ( p ) => {
     var myShad;
@@ -244,7 +244,9 @@ function compileAll() {
     }
     let otherUniforms = '';
     for( let i =0; i < uniformEls.length; i++ ){
-	otherUniforms += "uniform float u_" + getModuleIdNum(uniformEls[i]) + ";\n"
+	let currVal = uniformEls[i].getElementsByTagName("input")[0].value;
+	otherUniforms += "uniform float u_" + getModuleIdNum(uniformEls[i])
+	    + "; // " + currVal + "\n";
     }
 
     let resultShader = `
@@ -261,7 +263,7 @@ void main() {
 `;
     newShader = resultShader;
     shaderShouldUpdate = true;
-    console.log("here is your shader:", resultShader);
+    console.log(resultShader, '\n\n');
     pushAllUniformUpdates();
 
 }

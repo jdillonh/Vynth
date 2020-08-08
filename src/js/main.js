@@ -285,3 +285,37 @@ function getTotalOffsetTop( ele ) {
     }
     return total;
 }
+let collapseButton = document.getElementById("collapse-menu");
+collapseButton.onclick = (e) => {
+    let barItems = document.getElementsByClassName("bar-item");
+    barItems = Array.from(barItems).filter( e => e.id != "collapse-menu" )
+    let newStyle;
+    let collapseContent;
+    if( barItems[0].style.display == '' ||
+	barItems[0].style.display == 'block' ) {
+	newStyle = 'none';
+	collapseContent = 'O';
+	collapseButton.classList.add("menu-hidden");
+	collapseButton.classList.remove("menu-open");
+    }
+    else {
+	newStyle = '';
+	collapseContent = 'X';
+	collapseButton.classList.add("menu-open");
+	collapseButton.classList.remove("menu-hidden");
+    }
+    collapseButton.innerText = collapseContent;
+    barItems.forEach( e => e.style.display = newStyle );
+
+    let modules = Array.from(document.getElementsByClassName("module"));
+    let cords = Array.from(document.getElementsByClassName("patch-cord"));
+
+    [].concat(modules).concat(cords).forEach( e => {
+	if(e.style.display != 'none') {
+	    e.style.display = 'none';
+	}
+	else {
+	    e.style.display = '';
+	}
+    });
+}
