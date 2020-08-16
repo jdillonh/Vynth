@@ -18,9 +18,10 @@ type them out by hand.
 ## Instructions
 ### Modules
 Modules are the building blocks of every program. Click the boxes around the sides of the screen to create modules.
+Click and drag modules to move them around.
 "Patch" them together by clicking on the outlet of one module (the grey circle on its right side) and then the inlet of 
 another module (one of the circles on its left side).
-After creating a patch click the reload button **REL** to compile and run your program.
+After creating a patch click the reload button (**REL**) to compile and run your program.
 
 Patches generally look like this *inputs* -> *transformations* -> *output*.
 
@@ -30,15 +31,15 @@ You can right click while hovering over a module or a patch cable to **delete** 
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:  
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/xyt.png" height="50px">  
-X, which corresponds to a pixels x position  
-Y, which corresponds to a pixels y position  
-and *t* (Time), which is a value that steadily increases with time.  
+**x**, which corresponds to a pixels x position  
+**y**, which corresponds to a pixels y position  
+and **t** (time), which is a value that steadily increases with time.  
 
 ### Transformations 
 The inputs can be transformed to make different patterns using
 transformation modules.
 
-The *sin*, *tri*, *saw* and *sqr* transformations are oscillators and will change
+The **sin**, **tri**, **saw** and **sqr** transformations are oscillators and will change
 inputs into repeating patterns as shown below:  
 ![waveshapes](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/waveshapes.png)  
 These module have 2 inputs, the first input is the value that will be transformed, the second is the 
@@ -54,9 +55,9 @@ symmetry. Here is an example of how to wire them up:
 ![theta](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png)
 -->
 
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/midi.png" width="50">  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="50">  
 
-The *Number Box* module
+The **Number Box** module
 has 1 input and 1 output. The number the module represents can be changed by clicking inside the box and typing in a new number.
 If another module is connected to input of this module then the output will be the input * the number,
 otherwise the just number will be output.  
@@ -65,16 +66,16 @@ simply route it through a number box.
 
 You do not need to click reload (*REL*) after every change to the number box, it will update automatically.
 
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="50">  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/midi.png" width="50">  
 
-The *MIDI* module works similarly to the number box, but its value is controlled by a CC midi controller.
+The **MIDI** module works similarly to the number box, but its value is controlled by a CC midi controller.
 To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
 and will output 1 for MIDI 127 and 0 for MIDI 0.
 
 The *Multiply* Module "*", takes two inputs and simply multiplies them. 
 
 ### Output
-The &omega; (output) module represents the end of the patch. Its three inputs correspond to the three color channels
+The **&omega;** (output) module represents the end of the patch. Its three inputs correspond to the three color channels
 Red, Green and Blue. There must be exactly one &omega; module. If nothing is connected to the &omega; module, or 
 there is not exactly one of them, the patch will not compile.
 
