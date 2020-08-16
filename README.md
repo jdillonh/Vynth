@@ -26,15 +26,15 @@ Patches generally look like this *inputs* -> *transformations* -> *output*.
 
 You can right click while hovering over a module or a patch cable to delete it.
 
-#### inputs
+### Inputs
 The first type of module is an *input*.
-These modules have no inlets. There are three kinds:
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" height="50px">  
+These modules have no inlets. There are three kinds:  
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xyt.png" height="50px">  
 &#8658; (X), which corresponds to a pixels x position  
 &#8658; (Y), which corresponds to a pixels y position  
 and *t* (Time), which is a value that steadily increases with time.  
 
-#### transformations 
+### Transformations 
 The inputs can be transformed to make different patterns using
 transformation modules.
 
@@ -71,8 +71,7 @@ and will output 1 for MIDI 127 and 0 for MIDI 0.
 
 The *Multiply* Module "*", takes two inputs and simply multiplies them. 
 
-
-#### output
+### Output
 The &omega; (output) module represents the end of the patch. It's three inputs coorespond to the three color channels
 Red, Green and Blue. There must be exactly one &omega; module. If nothing is connected to the &omega; module, or 
 there is not exactly one of them, the patch will not compile.
