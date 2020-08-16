@@ -29,7 +29,7 @@ You can right click while hovering over a module or a patch cable to delete it.
 #### inputs
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xyt.png" height="50px">
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" height="50px">  
 &#8658; (X), which corresponds to a pixels x position  
 &#8658; (Y), which corresponds to a pixels y position  
 and *t* (Time), which is a value that steadily increases with time.  
@@ -46,8 +46,8 @@ These module have 2 inputs, the first input is the value that will be transforme
 This creates an effect similar to chromatic aberration.
 
 The *theta* and *rad* (radius) modules allow you to create patterns with radial 
-symmetry. Here is an example of how to wire them up:
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png" width="100">
+symmetry. Here is an example of how to wire them up:  
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png" width="100">  
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/thetaExample.png" width="100">
 <!--
 ![radius](https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png)
@@ -89,14 +89,14 @@ Saw waves are useful for creating patterns that tile or repeat. Here we 'repeat'
 times by passing them into the saw oscillator. You can use the output of these saw's to make more complex patterns.
 
 Lines:  
-![squiggles](https://github.com/jdillonh/Vynth/blob/master/examples/squigly-lines.png)
+![squiggles](https://github.com/jdillonh/Vynth/blob/master/examples/squigly-lines.png)  
 x -> sqr makes vertical stripes. Add a little bit of y -> sin to make them squiggly.
 
-![plaid](https://github.com/jdillonh/Vynth/blob/master/examples/simple-plaid.png)
+![plaid](https://github.com/jdillonh/Vynth/blob/master/examples/simple-plaid.png)  
 sqr demonstrates combining stripes to make a plaid look.
 
 Kaliedascope patterns:  
-![kaleida](https://github.com/jdillonh/Vynth/blob/master/examples/kaleidescope.png)
+![kaleida](https://github.com/jdillonh/Vynth/blob/master/examples/kaleidescope.png)  
 theta and rad process x & y to give angle and radius (polar coordinates).
 angle goes into saw to create a repeating pattern along the theta axis.
 sqr makes that data into stripes.
