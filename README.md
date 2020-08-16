@@ -4,7 +4,7 @@ Use it [here](https://jdillonh.github.io/Vynth/).
 ## What is it?
 
 With Vynth, users make programs or "patches" out of simple building blocks. Those patches compile
-into GLSL progrmas that run via WebGL.
+into GLSL fragment shaders that run via WebGL.
 
 Vynth is a modular digital video synthesizer, inspired by analog video synthesizers 
 (sorta like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U)), 
@@ -18,20 +18,20 @@ type them out by hand.
 ## Instructions
 ### Modules
 Modules are the building blocks of every program. Click the boxes around the sides of the screen to create modules.
-"Patch" them together by clicking on the outlet of one module (the grey circle on it's right side) and then the inlet of 
+"Patch" them together by clicking on the outlet of one module (the grey circle on its right side) and then the inlet of 
 another module (one of the circles on its left side).
 After creating a patch click the reload button **REL** to compile and run your program.
 
 Patches generally look like this *inputs* -> *transformations* -> *output*.
 
-You can right click while hovering over a module or a patch cable to delete it.
+You can right click while hovering over a module or a patch cable to **delete** it.
 
 ### Inputs
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:  
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/xyt.png" height="50px">  
 &#8658; (X), which corresponds to a pixels x position  
-&#8658; (Y), which corresponds to a pixels y position  
+<div style="transform: rotate(90deg);"> &#8658 </div>; (Y), which corresponds to a pixels y position  
 and *t* (Time), which is a value that steadily increases with time.  
 
 ### Transformations 
@@ -66,13 +66,13 @@ You do not need to click reload (*REL*) after every change to the number box, it
 
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/numberbox.png" width="25">
 The *MIDI* module works similarly to the number box, but its value is controlled by a CC midi controller.
-To use this module, add it to your patch and set the number in it's UI to the MIDI CC#. The MIDI module listens on every channel 
+To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
 and will output 1 for MIDI 127 and 0 for MIDI 0.
 
 The *Multiply* Module "*", takes two inputs and simply multiplies them. 
 
 ### Output
-The &omega; (output) module represents the end of the patch. It's three inputs coorespond to the three color channels
+The &omega; (output) module represents the end of the patch. Its three inputs coorespond to the three color channels
 Red, Green and Blue. There must be exactly one &omega; module. If nothing is connected to the &omega; module, or 
 there is not exactly one of them, the patch will not compile.
 
