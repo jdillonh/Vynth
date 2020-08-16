@@ -29,11 +29,10 @@ You can right click while hovering over a module or a patch cable to delete it.
 #### inputs
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:
-&#8658; (X), which corresponds to a pixels x position <img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" width="50px" height="50px">
-
-&#8658; (Y), which corresponds to a pixels y position <img src="https://github.com/jdillonh/Vynth/blob/master/examples/ydriver.png" width="50px" height="50px">
-
-and *t* (Time), which is a value that steadily increases with time. <img src="https://github.com/jdillonh/Vynth/blob/master/examples/timedriver.png" width="50px" height="50px">.
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xyt.png" height="50px">
+&#8658; (X), which corresponds to a pixels x position  
+&#8658; (Y), which corresponds to a pixels y position  
+and *t* (Time), which is a value that steadily increases with time.  
 
 #### transformations 
 The inputs can be transformed to make different patterns using
@@ -55,8 +54,8 @@ symmetry. Here is an example of how to wire them up:
 ![theta](https://github.com/jdillonh/Vynth/blob/master/examples/thetaExample.png)
 -->
 
-The *Number Box* module, 
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/numberbox.png" width="25">
+The *Number Box* module
 has 1 input and 1 output. The number the module represents can be changed by clicking inside the box and typing in a new number.
 If another module is connected to input of this module then the output will be the input * the number,
 otherwise the just number will be outputed.  
@@ -65,7 +64,13 @@ simply route it through a number box.
 
 You do not need to click reload (*REL*) after every change to the number box, it will update automatically.
 
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/numberbox.png" width="25">
+The *MIDI* module works similarly to the number box, but its value is controlled by a CC midi controller.
+To use this module, add it to your patch and set the number in it's UI to the MIDI CC#. The MIDI module listens on every channel 
+and will output 1 for MIDI 127 and 0 for MIDI 0.
+
 The *Multiply* Module "*", takes two inputs and simply multiplies them. 
+
 
 #### output
 The &omega; (output) module represents the end of the patch. It's three inputs coorespond to the three color channels
