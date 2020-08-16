@@ -54,7 +54,8 @@ symmetry. Here is an example of how to wire them up:
 ![theta](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png)
 -->
 
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="25">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/midi.png" width="50">  
+
 The *Number Box* module
 has 1 input and 1 output. The number the module represents can be changed by clicking inside the box and typing in a new number.
 If another module is connected to input of this module then the output will be the input * the number,
@@ -64,7 +65,8 @@ simply route it through a number box.
 
 You do not need to click reload (*REL*) after every change to the number box, it will update automatically.
 
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="25">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="50">  
+
 The *MIDI* module works similarly to the number box, but its value is controlled by a CC midi controller.
 To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
 and will output 1 for MIDI 127 and 0 for MIDI 0.
