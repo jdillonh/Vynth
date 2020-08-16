@@ -29,9 +29,9 @@ You can right click while hovering over a module or a patch cable to **delete** 
 ### Inputs
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:  
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xyt.png" height="50px">  
-&#8658; (X), which corresponds to a pixels x position  
-<div style="transform: rotate(90deg)"> &#8658; </div> (Y), which corresponds to a pixels y position  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/xyt.png" height="50px">  
+X (right arrow), which corresponds to a pixels x position  
+Y (up arrow), which corresponds to a pixels y position  
 and *t* (Time), which is a value that steadily increases with time.  
 
 ### Transformations 
