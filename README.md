@@ -7,7 +7,7 @@ With Vynth, users make programs or "patches" out of simple building blocks. Thos
 into GLSL fragment shaders that run via WebGL.
 
 Vynth is a modular digital video synthesizer, inspired by analog video synthesizers 
-(sorta like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U)), 
+(like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U)), 
 that runs in your browser.
 
 It presents an interface that will be familiar to users of Max/MSP/Jitter or other visual programming 
@@ -30,8 +30,8 @@ You can right click while hovering over a module or a patch cable to **delete** 
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:  
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/xyt.png" height="50px">  
-X (right arrow), which corresponds to a pixels x position  
-Y (up arrow), which corresponds to a pixels y position  
+X, which corresponds to a pixels x position  
+Y, which corresponds to a pixels y position  
 and *t* (Time), which is a value that steadily increases with time.  
 
 ### Transformations 
@@ -39,32 +39,32 @@ The inputs can be transformed to make different patterns using
 transformation modules.
 
 The *sin*, *tri*, *saw* and *sqr* transformations are oscillators and will change
-inputs into repeating patters as shown below:  
-![waveshapes](https://github.com/jdillonh/Vynth/blob/master/examples/waveshapes.png)  
+inputs into repeating patterns as shown below:  
+![waveshapes](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/waveshapes.png)  
 These module have 2 inputs, the first input is the value that will be transformed, the second is the 
 *chromatic offset*. As this number increases the difference in phase of the output across color channels will increase.
 This creates an effect similar to chromatic aberration.
 
 The *theta* and *rad* (radius) modules allow you to create patterns with radial 
 symmetry. Here is an example of how to wire them up:  
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png" width="100">  
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/thetaExample.png" width="100">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png" width="100">  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png" width="100">
 <!--
-![radius](https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png)
-![theta](https://github.com/jdillonh/Vynth/blob/master/examples/thetaExample.png)
+![radius](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png)
+![theta](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png)
 -->
 
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/numberbox.png" width="25">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="25">
 The *Number Box* module
 has 1 input and 1 output. The number the module represents can be changed by clicking inside the box and typing in a new number.
 If another module is connected to input of this module then the output will be the input * the number,
-otherwise the just number will be outputed.  
+otherwise the just number will be output.  
 This is useful for scaling an input. For example, if you want to adjust the rate of *t*,
 simply route it through a number box.
 
 You do not need to click reload (*REL*) after every change to the number box, it will update automatically.
 
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/numberbox.png" width="25">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="25">
 The *MIDI* module works similarly to the number box, but its value is controlled by a CC midi controller.
 To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
 and will output 1 for MIDI 127 and 0 for MIDI 0.
@@ -72,7 +72,7 @@ and will output 1 for MIDI 127 and 0 for MIDI 0.
 The *Multiply* Module "*", takes two inputs and simply multiplies them. 
 
 ### Output
-The &omega; (output) module represents the end of the patch. Its three inputs coorespond to the three color channels
+The &omega; (output) module represents the end of the patch. Its three inputs correspond to the three color channels
 Red, Green and Blue. There must be exactly one &omega; module. If nothing is connected to the &omega; module, or 
 there is not exactly one of them, the patch will not compile.
 
@@ -83,33 +83,33 @@ The *X* button in the top-left will toggle hiding / showing the ui so you can se
 
 ## Examples & Techniques
 Tiling Patterns:  
-![tiling](https://github.com/jdillonh/Vynth/blob/master/examples/tiling-example.png)
+![tiling](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/tiling-example.png)
 Saw waves are useful for creating patterns that tile or repeat. Here we 'repeat' the x axis and y axis several
 times by passing them into the saw oscillator. You can use the output of these saw's to make more complex patterns.
 
 Lines:  
-![squiggles](https://github.com/jdillonh/Vynth/blob/master/examples/squigly-lines.png)  
+![squiggles](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/squigly-lines.png)  
 x -> sqr makes vertical stripes. Add a little bit of y -> sin to make them squiggly.
 
-![plaid](https://github.com/jdillonh/Vynth/blob/master/examples/simple-plaid.png)  
+![plaid](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/simple-plaid.png)  
 sqr demonstrates combining stripes to make a plaid look.
 
 Kaliedascope patterns:  
-![kaleida](https://github.com/jdillonh/Vynth/blob/master/examples/kaleidescope.png)  
+![kaleida](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/kaleidescope.png)  
 theta and rad process x & y to give angle and radius (polar coordinates).
 angle goes into saw to create a repeating pattern along the theta axis.
 sqr makes that data into stripes.
 chromatic offset over time makes the rainbow.
 
-![circtile](https://github.com/jdillonh/Vynth/blob/master/examples/tile-circles.png)
+![circtile](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/tile-circles.png)  
 Combine polar coordinates and tiling to create tiled circles.
 
 ### Old Examples
 These are from the last version of Vynth.
-![screenshot1](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot1.png)
-![screenshot2](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot2.png)
-![screenshot3](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot3.png)
-![screenshot4](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot4.png)
+![screenshot1](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot1.png)
+![screenshot2](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot2.png)
+![screenshot3](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot3.png)
+![screenshot4](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot4.png)
 
-![collage](https://github.com/jdillonh/Vynth/blob/master/examples/collage.jpg)
+![collage](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/collage.jpg)
 
