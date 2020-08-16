@@ -118,7 +118,9 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0;
 }
-
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 input[type=number] {
     boder: 0;
@@ -224,4 +226,16 @@ input[type=number] {
     color: white;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+
+.midi-input {
+    color: black !important;
+    background: repeating-linear-gradient(
+	#ccc,
+	#ccc 10px,
+	#eee 10px,
+	#eee 20px
+    );
 }

@@ -4,9 +4,6 @@
  * @see modules
  */
 function addModule( type ) {
-    if( !type  ) {
-	throw "no such module type \"" + type + "\"";
-    }
 
     let newMod = document.importNode(
 	document.getElementById("module-template").content, true
@@ -109,6 +106,7 @@ var modules = {
 	inlets : 3,
 	outlets : 0,
 	textContent : "out",
+	extraHTML: "&#x3a9;",
 	glslSnippet : ( red, green, blue ) => {
 	    if( red == [] )  red = '0.0' ;
 	    if( blue == [] )  blue = '0.0' ;
@@ -136,15 +134,40 @@ var modules = {
     numBoxUniform : {
 	isUniform : true,
 	type : "numBoxUniform",
-	inlets : 0,
+	inlets : 1,
 	outlets : 1,
 	extraHTML : `<input type="number" step="0.01" value="1.0"
                       class="uniformValue"
                       onclick="this.focus()"
                       onchange="pushUniformUpdate(this)">`,
 	//textContent : "1",
-	glslSnippet : ( color, moduleEl ) => {
+	glslSnippet : ( in1, color, moduleEl ) => {
 	    let modNum = getModuleIdNum(moduleEl)
+	    if( in1 !== '' ) {
+		return in1 + ' * ' + "u_" + modNum;
+	    }
+	    return "u_" + modNum;
+	}
+    },
+
+    midiUniform : {
+	isUniform : true,
+	type : "midiUniform",
+	inlets : 1,
+	outlets : 1,
+	extraHTML :`
+<input type="number" step="1" value="0"
+                      class="uniformValue midi-input"
+                      onclick="this.focus()"
+                      onchange="pushMidiUniformUpdate(this)">
+`,
+
+	//textContent : "1",
+	glslSnippet : ( in1, color, moduleEl ) => {
+	    let modNum = getModuleIdNum(moduleEl)
+	    if( in1 !== '' ) {
+		return in1 + ' * ' + "u_" + modNum;
+	    }
 	    return "u_" + modNum;
 	}
     },
@@ -154,17 +177,15 @@ var modules = {
 	type : "multOp",
 	inlets : 2,
 	outlets : 1,
-	textContent : '*',
+	//textContent : '*',
+	extraHTML: `<div id="mult-op"> * </div>`,
 	glslSnippet : (in1, in2) => {
 	    if( in1 === undefined || in1 === '' ) {
 		in1 = '0.0';
-		console.log("multiply must have 2 inlets!")
 	    }
 	    if( in2 === undefined || in2 === '' ) {
 		in2 = '0.0';
-		console.log("multiply must have 2 inlets!")
 	    }
-	    console.log(in1, in2);
 	    return `(${in1} * ${in2})`;
 	}
     },
@@ -175,6 +196,7 @@ var modules = {
 	inlets : 0,
 	outlets : 1,
 	textContent : "x",
+	extraHTML : "&#8658",
 	glslSnippet : () => { return "vTexCoord.x" },
     },
     yDriver : {
@@ -182,14 +204,41 @@ var modules = {
 	inlets : 0,
 	outlets : 1,
 	textContent : "y",
+	extraHTML : `<div style="transform: rotate(-90deg);"> &#8658 </div>`,
 	glslSnippet : () => { return "vTexCoord.y" },
     },
     timeDriver : {
 	type : "timeDriver",
 	inlets : 0,
 	outlets : 1,
-	textContent : "t",
+	extraHTML  : "<em> t </em>",
 	glslSnippet : () => { return "u_time/100.0" },
+    },
+    angleDriver : {
+	type : "angleDriver",
+	inlets : 2,
+	outlets : 1,
+	textContent : "angle",
+	extraHTML : "&theta;",
+	glslSnippet : (in1, in2) => { return `\
+(atan( ${in1}-0.5,${in2}-0.5)+3.14)/(2.0*3.14)`
+				    }
+    },
+
+    radiusDriver : {
+	type : "radiusDriver",
+	inlets : 2,
+	outlets : 1,
+	textContent : "rad",
+	glslSnippet : (in1, in2) => {
+	    if( in1 === '' ) {
+		in1 = '0.0';
+	    }
+	    if( in2 === '' ) {
+		in2 = '0.0';
+	    }
+	    return `distance(vec2(${in1}, ${in2}), vec2(0.5, 0.5))`;
+	}
     },
 
     // Oscillators

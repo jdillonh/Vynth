@@ -1,6 +1,6 @@
 /**
  * @fileOverview screen.js manages the p5.js interface, loading shaders, drawing to canvas, etc.
-*/
+ */
 
 /**
  * A default vertex shader
@@ -63,7 +63,10 @@ let newShader;
  */
 let updateUniforms = [];
 
+// active capture objects
 let capturers = [];
+
+// html canvas dom element
 let canvasEl;
 
 /**
@@ -126,7 +129,16 @@ let screenP5 = new p5(screen, 'screen');
  * @param {Object} mod HTML element of uniform module
  */
 function pushUniformUpdate( mod ) {
-    updateUniforms.push( ['u_' + getModuleIdNum(mod.parentElement), mod.value] )
+    updateUniforms.push( ['u_' + getModuleIdNum(mod.parentElement), mod.value] );
+}
+
+function pushUniformUpdatePair( name, value ) {
+    updateUniforms.push( [name, value] );
+}
+
+function pushMidiUniformUpdate( mod ) {
+    MIDI.setListener(mod.value, // channel num
+		     'u_' + getModuleIdNum(mod.parentElement)); //uniform name
 }
 
 // Tells p5 shader handler to update all the uniforms
@@ -135,7 +147,7 @@ function pushUniformUpdate( mod ) {
 // all uniforms
 /** 
  * Pushes an update to the Queue for all uniform values in the patch
- * Called on lading a new shader, when all unifroms have not been set yet.
+ * Called on loading a new shader, when all unifroms have not been set yet.
  */
 function pushAllUniformUpdates() {
     let uniformEls = [];
@@ -146,8 +158,16 @@ function pushAllUniformUpdates() {
 		[].slice.call(document.getElementsByClassName(type)) );
 	    // .push.apply = concatenate arrays
 	}
+
     }
 
+    uniformEls.filter( e => e.classList.contains('midiUniform')).forEach( midiEl => {
+	console.log('in filter i is', midiEl);
+	let input = midiEl.getElementsByTagName("input")[0];
+	pushMidiUniformUpdate(input);
+    });
+
+    console.log(uniformEls);
     for( let i = 0; i < uniformEls.length; i++ ) {
 	let curr = uniformEls[i];
 	updateUniforms.push( ['u_' + getModuleIdNum(curr),
@@ -155,7 +175,6 @@ function pushAllUniformUpdates() {
     }
 }
 
-// Dom Element => STRING of the number
 /** 
  * Gives the id number of a module
  * @param {Object} ModuleEl DomEl of the module
@@ -222,6 +241,8 @@ function getConnected( moduleEl ) {
  * Pushes uniform updates.
  */
 function compileAll() {
+    MIDI.clearListeners();
+
     let uniforms = [];
 
     let eye = document.getElementsByClassName("eyeOut");

@@ -31,6 +31,7 @@
     text-align: center;
     vertical-align: middle;
     line-height: 60px;
+    cursor: pointer;
 }
 
 .bar-item:hover {
@@ -51,6 +52,19 @@
 .bar-item.output:hover {
     border-color: var(--color6);
     color: var(--color6);
+}
+
+.popup-name {
+    opacity: 0;
+    display: none;
+}
+
+.hover-hint {
+    z-index: 100;
+    padding: 4px;
+    border: 2px solid white;
+    background-color: black;
+    pointer-events: none;
 }
 
 #collapse-menu.menu-hidden {
@@ -106,3 +120,10 @@
     background-size: contain;
 }
 */
+#mult-op {
+    transform: rotate(30deg) scale(3);
+    position: relative;
+    top: 15px;
+    left: -6px;
+}
+

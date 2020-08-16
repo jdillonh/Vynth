@@ -13,13 +13,18 @@ var mouseState = {
 /**
  * Handle mouse move, update pending patch cord
  */
-window.addEventListener("mousemove", function(e) {
-    let x = e.clientX;
-    let y = e.clientY;
-    mouseState.xPos = x;
-    mouseState.yPos = y;
-    updatePendingPatchCord();
+let a =(function() {
+    let uiToggle = document.getElementById("collapse-menu");
+    window.addEventListener("mousemove", function(e) {
+	let x = e.clientX;
+	let y = e.clientY;
+	mouseState.xPos = x;
+	mouseState.yPos = y;
+	updatePendingPatchCord();
+    });
 });
+a();
+
 
 /**
  * Handle user clicks, make a new connection or don't

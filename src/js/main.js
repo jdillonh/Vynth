@@ -319,3 +319,35 @@ collapseButton.onclick = (e) => {
 	}
     });
 }
+
+Array.from(document.getElementsByClassName("popup-name"))
+    .forEach( el => {
+
+	let button = el.parentNode;
+	let hoverHint = document.createElement("DIV");
+
+	hoverHint.innerText = el.innerText;
+	hoverHint.className = 'hover-hint';
+	hoverHint.style.position = 'absolute';
+
+	button.onmouseover = (e) => {
+	    //console.log(hoverHint);
+	    hoverHint.display = 'block';
+	    setTimeout( () => {
+		let pos = button.getBoundingClientRect();
+		if(mouseState.xPos >= pos.left && mouseState.xPos <= pos.right
+		   && mouseState.yPos >= pos.top && mouseState.yPos <= pos.bottom) {
+		    hoverHint.style.left = mouseState.xPos.toString() + 'px';
+		    hoverHint.style.top = mouseState.yPos.toString() + 'px';
+		    document.body.appendChild(hoverHint);
+		}
+	    }, 500.0);
+	}
+
+	button.onmouseleave = (e) => {
+	    hoverHint.display = '';
+	    if( hoverHint.parentNode !== null ) {
+		hoverHint.parentNode.removeChild(hoverHint);
+	    }
+	}
+    });
