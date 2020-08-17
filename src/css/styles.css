@@ -1,3 +1,10 @@
+:root {
+    --hl-color:#FADB3D;
+    --color2:  #D1CE6D;
+    --color3:  #3796C7;
+    --color4:  #C7C22C;
+}
+
 body {
     margin: 0;
     text-align: center;
@@ -26,6 +33,9 @@ body {
     cursor: move;
     width: 2.9em;
     height: 2.9em;
+}
+.module:hover {
+    border-color: var(--hl-color);
 }
 
 .module-header {
@@ -108,7 +118,9 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0;
 }
-
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 input[type=number] {
     boder: 0;
@@ -150,6 +162,12 @@ input[type=number] {
     z-index: 99;
 }
 
+.patch-cord:hover {
+    stroke: var(--hl-color);
+    stroke-width: 8;
+    transition: 0.1s;
+}
+
 #screen {
     z-index: -1;
     position: absolute;
@@ -159,11 +177,6 @@ input[type=number] {
     top: 0px;
     left: 0px;
 }
-
-.modal {
-
-}
-
 
 .modal {
     display: none;
@@ -213,4 +226,16 @@ input[type=number] {
     color: white;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+
+.midi-input {
+    color: black !important;
+    background: repeating-linear-gradient(
+	#ccc,
+	#ccc 10px,
+	#eee 10px,
+	#eee 20px
+    );
 }

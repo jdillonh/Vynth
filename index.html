@@ -8,7 +8,7 @@
 	<meta name="description"
 	      content="A web-based visual programming environment for video synthesis.">
 	<meta name="author" content="James Hall">
-
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	<link rel="stylesheet" href="src/css/styles.css?v=1.0">
 	<link rel="stylesheet" href="src/css/controls.css?v=1.0">
 
@@ -21,6 +21,7 @@
 		<span class="close" onClick="closeRecordingMenu()">&times;</span>
 		<form>
 		    <div class="menu-item">
+			~ Recording ~ <br>
 			Format: <br> 
 			<label for="png-set"> png set </label> <input id="png-set" type="radio" name="format" checked> <br>
 			<label for="gif"> gif </label> <input id="gif" type="radio" name="format"> <br>
@@ -43,73 +44,88 @@
 	
 	<!-- control bars -->
 	<ul class="side-bar">
-	    <li class="bar-item">
+	    <li class="bar-item menu-open" id="collapse-menu">
 		X
+		<div class="popup-name"> toggle ui </div>
 	    </li>
-	    <li id="x" class="bar-item"
-		onclick="addModule(modules.xDriver)">
-		&#8658
-	    </li>
-	    <li id="y" class="bar-item"
-		onclick="addModule(modules.yDriver)">
-		&#8658
-	    </li>
-	    <li id="time" class="bar-item"
-		onclick="addModule(modules.timeDriver)">
-		<i> t </i>
-	    </li>
-	    <li id="time" class="bar-item"
+	    <li id="mult" class="bar-item transform"
 		onclick="addModule(modules.multOp)">
 		&#10033;
+		<div class="popup-name"> multiply </div>
 	    </li>
-	    <li id="sin" class="bar-item"
+	    <li id="sin" class="bar-item transform"
 		onclick="addModule(modules.sinOsc)">
 		sin
+		<div class="popup-name"> sine oscillator </div>
 	    </li>
-	    <li id="tri" class="bar-item"
+	    <li id="tri" class="bar-item transform"
 		onclick="addModule(modules.triOsc)">
 		tri
+		<div class="popup-name"> triangle oscillator </div>
 	    </li>
-	    <li id="saw" class="bar-item"
+	    <li id="saw" class="bar-item transform"
 		onclick="addModule(modules.sawOsc)">
 		saw
+		<div class="popup-name"> sawtooth oscillator </div>
 	    </li>
-	    <li id="sqr" class="bar-item"
+	    <li id="sqr" class="bar-item transform"
 		onclick="addModule(modules.sqrOsc)">
 		sqr
+		<div class="popup-name"> square oscillator </div>
 	    </li>
 	</ul>
 	<ul class="top-bar">
-	    <li id="num" class="bar-item top-bar-item"
+	    <li id="x" class="bar-item top-bar-item input"
+		onclick="addModule(modules.xDriver)">
+		&#8658
+		<div class="popup-name"> x position input </div>
+	    </li>
+	    <li id="y" class="bar-item top-bar-item input"
+		onclick="addModule(modules.yDriver)">
+		&#8658
+		<div class="popup-name"> y position input </div>
+	    </li>
+	    <li id="angle" class="bar-item top-bar-item input"
+		onclick="addModule(modules.angleDriver)">
+		&theta;
+		<div class="popup-name"> angle from center </div>
+	    </li>
+	    <li id="radius" class="bar-item top-bar-item input"
+		onclick="addModule(modules.radiusDriver)">
+		rad
+		<div class="popup-name"> radius from center </div>
+	    </li>
+	    <li id="time" class="bar-item top-bar-item input"
+		onclick="addModule(modules.timeDriver)">
+		<i> t </i>
+		<div class="popup-name"> time input </div>
+	    </li>
+	    <li id="num" class="bar-item top-bar-item input" 
 		onclick="addModule(modules.numBoxUniform)">
 		1
+		<div class="popup-name"> number box </div>
 	    </li>
-	    <!-- TODO, make these functional
-		 <li id="rot" class="bar-item top-bar-item">
-		     &#8635;
-		 </li>
-
-	    <li id="kal" class="bar-item top-bar-item">
-		&#11041;
+	    <li id="midi" class="bar-item top-bar-item input" 
+		onclick="addModule(modules.midiUniform)">
+		midi <!-- TODO move to top -->
+		<div class="popup-name"> midi controller input </div>
 	    </li>
-	    -->
-	    <li id="rep" class="bar-item top-bar-item"
-		onClick="addModule(modules.repeatTrans)">
-		rep
-	    </li>
-	    <li id="eye" class="bar-item top-bar-item"
+	    <li id="eye" class="bar-item top-bar-item output"
 		onclick="addModule(modules.eyeOut)">
 		&#x3a9;
+		<div class="popup-name"> output </div>
 	    </li>
 	</ul>
 	<ul class="right-top-bar">
 	    <li id="compile" class="bar-item top-bar-item"
 		onclick="compileAll()">
 		rel
+		<div class="popup-name"> reload </div>
 	    </li>
 	    <li id="record" class="bar-item top-bar-item"
 		onclick="openRecordingMenu()">
 		rec
+		<div class="popup-name"> record </div>
 	    </li>
 	</ul>
 
@@ -132,6 +148,7 @@
 	<script src="src/js/modules.js"></script>
 	<script src="src/js/screen.js"></script>
 	<script src="src/js/recording.js"></script>
+	<script src="src/js/midi.js"></script>
 
 
     </body>

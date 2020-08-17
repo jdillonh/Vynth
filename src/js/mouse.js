@@ -6,7 +6,25 @@
 var mouseState = {
     lookingFor : null, //"inlet", "outlet", null
     from : null,
+    xPos : 0,
+    yPos : 0,
 }
+
+/**
+ * Handle mouse move, update pending patch cord
+ */
+let a =(function() {
+    let uiToggle = document.getElementById("collapse-menu");
+    window.addEventListener("mousemove", function(e) {
+	let x = e.clientX;
+	let y = e.clientY;
+	mouseState.xPos = x;
+	mouseState.yPos = y;
+	updatePendingPatchCord();
+    });
+});
+a();
+
 
 /**
  * Handle user clicks, make a new connection or don't
@@ -18,6 +36,7 @@ window.addEventListener("click", function(e) {
 
     if( e.target.className === "inlet") {
 	if( mouseState.lookingFor === "inlet" ) {
+	    cancelPendingPatchCord();
 	    newPatchCord( e.target.id, mouseState.from.id );
 	    clearMouseState();
 	}
@@ -28,6 +47,8 @@ window.addEventListener("click", function(e) {
 	else if ( mouseState.lookingFor === null ) {
 	    mouseState.lookingFor = "outlet";
 	    mouseState.from = e.target;
+	    // make a pending patch cord
+	    newPatchCord( e.target.id, null, true );
 	}
 	else {
 	    throw "invalid mouse state";
@@ -40,12 +61,15 @@ window.addEventListener("click", function(e) {
 	    clearMouseState();
 	}
 	else if ( mouseState.lookingFor === "outlet" ) {
+	    cancelPendingPatchCord();
 	    newPatchCord( mouseState.from.id , e.target.id );
 	    clearMouseState();
 	}
 	else if ( mouseState.lookingFor === null ) {
 	    mouseState.lookingFor = "inlet";
 	    mouseState.from = e.target;
+	    // make a pending patch cord
+	    newPatchCord( null, e.target.id, true );
 	}
 	else {
 	    throw "invalid mouse state";
@@ -53,7 +77,9 @@ window.addEventListener("click", function(e) {
     }
 
     else { // not an inlet or outle
-	if( mouseState.lookingFor ) {
+	// should be able to remove this vv
+	if( mouseState.lookingFor !== null ) {
+	    cancelPendingPatchCord();
 	    cancelNewPatchCord();
 	    clearMouseState();
 	}

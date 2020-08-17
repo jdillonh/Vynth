@@ -1,6 +1,6 @@
 /**
  * @fileOverview screen.js manages the p5.js interface, loading shaders, drawing to canvas, etc.
-*/
+ */
 
 /**
  * A default vertex shader
@@ -63,18 +63,26 @@ let newShader;
  */
 let updateUniforms = [];
 
+// active capture objects
 let capturers = [];
+
+// html canvas dom element
 let canvasEl;
 
 /**
  * Interface to p5.js
- * @type {Object} 
+ * @type {Function} 
  */
 const screen = ( p ) => {
     var myShad;
     p.setup = function() {
 	let p5Can  = p.createCanvas( window.innerWidth, window.innerHeight, p.WEBGL );
 	canvasEl = p5Can.canvas;
+	canvasEl.oncontextmenu = (e) => {
+	    // prevent annoying menu when you mis-click
+	    e.preventDefault();
+	    return false;
+	};
 	myShad = p.createShader( vertexShader,
 				 defaultFrag );
 	p.shader( myShad );
@@ -121,7 +129,16 @@ let screenP5 = new p5(screen, 'screen');
  * @param {Object} mod HTML element of uniform module
  */
 function pushUniformUpdate( mod ) {
-    updateUniforms.push( ['u_' + getModuleIdNum(mod.parentElement), mod.value] )
+    updateUniforms.push( ['u_' + getModuleIdNum(mod.parentElement), mod.value] );
+}
+
+function pushUniformUpdatePair( name, value ) {
+    updateUniforms.push( [name, value] );
+}
+
+function pushMidiUniformUpdate( mod ) {
+    MIDI.setListener(mod.value, // channel num
+		     'u_' + getModuleIdNum(mod.parentElement)); //uniform name
 }
 
 // Tells p5 shader handler to update all the uniforms
@@ -130,7 +147,7 @@ function pushUniformUpdate( mod ) {
 // all uniforms
 /** 
  * Pushes an update to the Queue for all uniform values in the patch
- * Called on lading a new shader, when all unifroms have not been set yet.
+ * Called on loading a new shader, when all unifroms have not been set yet.
  */
 function pushAllUniformUpdates() {
     let uniformEls = [];
@@ -141,7 +158,13 @@ function pushAllUniformUpdates() {
 		[].slice.call(document.getElementsByClassName(type)) );
 	    // .push.apply = concatenate arrays
 	}
+
     }
+
+    uniformEls.filter( e => e.classList.contains('midiUniform')).forEach( midiEl => {
+	let input = midiEl.getElementsByTagName("input")[0];
+	pushMidiUniformUpdate(input);
+    });
 
     for( let i = 0; i < uniformEls.length; i++ ) {
 	let curr = uniformEls[i];
@@ -150,7 +173,6 @@ function pushAllUniformUpdates() {
     }
 }
 
-// Dom Element => STRING of the number
 /** 
  * Gives the id number of a module
  * @param {Object} ModuleEl DomEl of the module
@@ -217,6 +239,8 @@ function getConnected( moduleEl ) {
  * Pushes uniform updates.
  */
 function compileAll() {
+    MIDI.clearListeners();
+
     let uniforms = [];
 
     let eye = document.getElementsByClassName("eyeOut");
@@ -239,7 +263,9 @@ function compileAll() {
     }
     let otherUniforms = '';
     for( let i =0; i < uniformEls.length; i++ ){
-	otherUniforms += "uniform float u_" + getModuleIdNum(uniformEls[i]) + ";\n"
+	let currVal = uniformEls[i].getElementsByTagName("input")[0].value;
+	otherUniforms += "uniform float u_" + getModuleIdNum(uniformEls[i])
+	    + "; // " + currVal + "\n";
     }
 
     let resultShader = `
@@ -256,7 +282,7 @@ void main() {
 `;
     newShader = resultShader;
     shaderShouldUpdate = true;
-    console.log("here is your shader:", resultShader);
+    console.log(resultShader, '\n\n');
     pushAllUniformUpdates();
 
 }

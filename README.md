@@ -1,87 +1,120 @@
 # Vynth
-Check it out [here](https://jdillonh.github.io/Vynth/).  
-![collage](https://github.com/jdillonh/Vynth/blob/master/examples/collage.jpg)
+Use it [here](https://jdillonh.github.io/Vynth/).  
+
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/collage2.jpg">  
+
 ## What is it?
-Vynth is a video-synthesizer, inspired by analog video synthesizers 
-(like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U) sorta), 
+
+Vynth is a modular digital video synthesizer, inspired by analog video synthesizers 
+(like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U)), 
 that runs in your browser.
+
+With Vynth, users make programs or "patches" out of simple building blocks. Those patches compile
+into GLSL fragment shaders that run via WebGL.
 
 It presents an interface that will be familiar to users of Max/MSP/Jitter or other visual programming 
 environments, and is an easy way to play with graphics programs without having to 
-type them out by hand. Similar to [Hydra](https://github.com/ojack/hydra) but designed to be approached
-by people who don't have experience coding.
+type them out by hand. 
 
-Keep in mind that this project is a WIP and things are subject to change, 
-but everything listed is fully supported.
 
-## How do I use it?
-Every basic patch starts with 3 things: 
-A *Driver*, an *Oscillator*, and the *Output Module*.
-After creating a patch by connecting these modules,
-press the *Reload* (rel) button in the top right corner of the screen.
+## Instructions
+### Modules
+Modules are the building blocks of every program. Click the boxes around the sides of the screen to create modules.
+Click and drag modules to move them around.
+"Patch" them together by clicking on the outlet of one module (the grey circle on its right side) and then the inlet of 
+another module (one of the circles on its left side).
+After creating a patch click the reload button (**REL**) to compile and run your program.
 
-### Patching
-Connecting modules (or patching) is the fundamental interaction of Vynth.
-To create a connection, simply click on an outlet, and then on an inlet. 
-If you click on an outlet and then decide that you don't want to create a connection, 
-simply click in empty space and the pending connection is canceled.
-You can also create connection backwards, by first clicking on an inlet, and then an outlet.
-I plan on adding some better UI for this 
-(where you can actually see the pending cable attached to your mouse).
+Patches generally look like this *inputs* -> *transformations* -> *output*.
 
-### Drivers
-There are 3 types of drivers.
-The X driver
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xdriver.png" width="50px" height="50px">
-Y driver
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/ydriver.png" width="50px" height="50px">
-and Time driver
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/timedriver.png" width="50px" height="50px">.
+You can right click while hovering over a module or a patch cable to **delete** it.
 
-Drivers *drive* oscillators, that is, they tell them what dimension to work in.
-X and Y drivers tell the oscillators to set pixels along the X and Y axis respectively, whereas 
-the Time driver sets every pixel according to the change of time.
+### Inputs
+The first type of module is an *input*.
+These modules have no inlets. There are three kinds:  
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/xyt.png" height="60px">  
+**x** which corresponds to a pixels x position  
+**y** which corresponds to a pixels y position  
+and **t** which is a value that steadily increases with time.  
 
-### Oscillators
-There are four types of oscillators: Sine (sin), Triangle (tri), Sawtooth (saw), and Square (sqr).
-Anyone familiar with audio synthesis is probably aware of what these look like, but here's a graphic 
-for everyone else:
-![waveshapes](https://github.com/jdillonh/Vynth/blob/master/examples/waveshapes.png)
+### Transformations 
+The inputs can be transformed to make different patterns using
+transformation modules.
 
-Each Oscillator has 2 inputs. The first input is for the driver, the second input controls 
-"chromatic offset". This determines how out of phase the oscillator is across its three color channels.
-You can connect another driver here, or a uniform (more on those later).
+The **sin**, **tri**, **saw** and **sqr** transformations are oscillators and will change
+inputs into repeating patterns as shown below:  
+![waveshapes](https://github.com/jdillonh/Vynth/blob/master/examples/waveshapes.png)  
+These module have 2 inputs, the first input is the value that will be transformed, the second is the 
+*chromatic offset*. As this number increases the difference in phase of the output across color channels will increase.
+This creates an effect similar to chromatic aberration.
+
+The **theta** and **rad** (radius) modules allow you to create patterns with cartesian 
+symmetry. They work by converting radial coordinates into polar coordinates. Here are examples of one way to wire them up:  
+(click the image to see it larger)  
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png" width="400">
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/thetaExample.png" width="400">
+
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/numberbox.png" width="50">  
+
+The **Number Box** module
+has 1 input and 1 output. The number the module represents can be changed by clicking inside the box and typing in a new number.
+If another module is connected to input of this module then the output will be the input * the number,
+otherwise the just number will be output.  
+This is useful for scaling an input. For example, if you want to adjust the rate of *t*,
+simply route it through a number box.
+
+You do not need to click reload (*REL*) after every change to the number box, it will update automatically.
+
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/midi.png" width="50">  
+
+The **MIDI** module works similarly to the number box, but its value is controlled by a CC midi controller.
+To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
+and will output 1 for MIDI 127 and 0 for MIDI 0.
+Make sure your midi controller is plugged in before starting Vynth.
+
+<img src="https://github.com/jdillonh/Vynth/blob/master/examples/multiply.png" width="50">  
+
+The **Multiply** Module takes two inputs and simply multiplies them. 
 
 ### Output
-The output module, (or Omega), is the always the last module in the patch. The three inputs 
-correspond to the Red, Green and Blue color channels.
-There must be exactly one output module or the program will not compile.
+The **&Omega;** (output) module represents the end of the patch. Its three inputs correspond to the three color channels
+Red, Green and Blue. *There must be exactly one &Omega; module.* If nothing is connected to the &Omega; module, or 
+there is not exactly one of them, the patch will not compile.
 
-### Multiplication and Uniforms
-These two modules go together very well so I will cover them as one topic.
-The Multiplier module, (*\**) simply multiplies the two incoming signals. The Number Box 
-(a type of uniform) simply stores a number. You can click it and enter any number you want, positive 
-or negative.
-The most obvious use for theme is to scale drivers. Consider this patch:  
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling1.png" width="300px" height="102px">  
-It creates 2 bands of color on the screen. Maybe you want 4 of them. 
-Simply insert a multiplier and a number box of 2.0 into the patch to scale the X driver. Like this:  
-<img src="https://github.com/jdillonh/Vynth/blob/master/examples/driverscaling2.png" width="300px" height="118px">  
+### Other Controls
+New in V2 is the *REC* button. You can now create gif or png recordings of your patches! 
 
-## Recording
-Recording your patch is now supported! Click the rec box.
+The **X** button in the top-left will toggle hiding / showing the ui so you can see your patches in all their glory.
 
-## How does it work?
-Vynth patches compile into glsl fragment shaders which are laid over a square geometry.
-Each module represents a glsl function, uniform value, or other abstraction. 
-The compiled shaders are usually pretty simple, you can check them out in the console.
+## Examples & Techniques
+Tiling Patterns:  
+![tiling](https://github.com/jdillonh/Vynth/blob/master/examples/tiling-example.png)
+Saw waves are useful for creating patterns that tile or repeat. Here we 'repeat' the x axis and y axis several
+times by passing them into the saw oscillator. You can use the output of these saw's to make more complex patterns.
 
-## Examples
-Note that things are subject to change, so reproducing these patches exactly 
-may produce different results.
+Lines:  
+![squiggles](https://github.com/jdillonh/Vynth/blob/master/examples/squigly-lines.png)  
+x -> sqr makes vertical stripes. Add a little bit of y -> sin to make them squiggly.
+
+![plaid](https://github.com/jdillonh/Vynth/blob/master/examples/simple-plaid.png)  
+sqr demonstrates combining stripes to make a plaid look.
+
+Kaliedascope patterns:  
+![kaleida](https://github.com/jdillonh/Vynth/blob/master/examples/kaleidescope.png)  
+theta and rad process x & y to give angle and radius (polar coordinates).
+angle goes into saw to create a repeating pattern along the theta axis.
+sqr makes that data into stripes.
+chromatic offset over time makes the rainbow.
+
+![circtile](https://github.com/jdillonh/Vynth/blob/master/examples/tile-circles.png)  
+Combine polar coordinates and tiling to create tiled circles.
+
+### Old Examples
+These are from the last version of Vynth. They should still work but might look a little different now.  
 ![screenshot1](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot1.png)
 ![screenshot2](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot2.png)
 ![screenshot3](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot3.png)
 ![screenshot4](https://github.com/jdillonh/Vynth/blob/master/examples/screenshot4.png)
 
+![collage](https://github.com/jdillonh/Vynth/blob/master/examples/collage.jpg)
 
