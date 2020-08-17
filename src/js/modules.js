@@ -237,7 +237,7 @@ var modules = {
 	    if( in2 === '' ) {
 		in2 = '0.0';
 	    }
-	    return `distance(vec2(${in1}, ${in2}), vec2(0.5, 0.5))`;
+	    return `2.0*distance(vec2(${in1}, ${in2}), vec2(0.5, 0.5))`;
 	}
     },
 

@@ -46,14 +46,10 @@ These module have 2 inputs, the first input is the value that will be transforme
 *chromatic offset*. As this number increases the difference in phase of the output across color channels will increase.
 This creates an effect similar to chromatic aberration.
 
-The *theta* and *rad* (radius) modules allow you to create patterns with radial 
-symmetry. Here is an example of how to wire them up:  
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png" width="100">  
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png" width="100">
-<!--
-![radius](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png)
-![theta](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png)
--->
+The **theta** and **rad** (radius) modules allow you to create patterns with radial 
+symmetry. Here are examples of how to wire them up:  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png" width="300">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png" width="300">
 
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="50">  
 
@@ -72,7 +68,8 @@ The **MIDI** module works similarly to the number box, but its value is controll
 To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
 and will output 1 for MIDI 127 and 0 for MIDI 0.
 
-The *Multiply* Module "*", takes two inputs and simply multiplies them. 
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/multiply.png" width="50">  
+The **Multiply** Module takes two inputs and simply multiplies them. 
 
 ### Output
 The **&omega;** (output) module represents the end of the patch. Its three inputs correspond to the three color channels
