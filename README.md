@@ -48,8 +48,8 @@ These module have 2 inputs, the first input is the value that will be transforme
 *chromatic offset*. As this number increases the difference in phase of the output across color channels will increase.
 This creates an effect similar to chromatic aberration.
 
-The **theta** and **rad** (radius) modules allow you to create patterns with cartesian 
-symmetry. They work by converting radial coordinates into polar coordinates. Here are examples of one way to wire them up:  
+The **theta** and **rad** (radius) modules allow you to create patterns with radial
+symmetry. They work by converting cartesian coordinates into polar coordinates. Here are some examples of how to wire them up:  
 (click the image to see it larger)  
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/radExample.png" width="400">
 <img src="https://github.com/jdillonh/Vynth/blob/master/examples/thetaExample.png" width="400">
