@@ -30,7 +30,7 @@ You can right click while hovering over a module or a patch cable to **delete** 
 ### Inputs
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:  
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/xyt.png" height="50px">  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/xyt.png" height="60px">  
 **x**, which corresponds to a pixels x position  
 **y**, which corresponds to a pixels y position  
 and **t** (time), which is a value that steadily increases with time.  
@@ -47,9 +47,10 @@ These module have 2 inputs, the first input is the value that will be transforme
 This creates an effect similar to chromatic aberration.
 
 The **theta** and **rad** (radius) modules allow you to create patterns with radial 
-symmetry. Here are examples of how to wire them up:  
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png" width="300">
-<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png" width="300">
+symmetry. They work by converting radial coordinates into polar coordinates. Here are examples of one way to wire them up:  
+(click the image to see it larger)  
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png" width="400">
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/thetaExample.png" width="400">
 
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/numberbox.png" width="50">  
 
@@ -69,17 +70,18 @@ To use this module, add it to your patch and set the number in its UI to the MID
 and will output 1 for MIDI 127 and 0 for MIDI 0.
 
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/multiply.png" width="50">  
+
 The **Multiply** Module takes two inputs and simply multiplies them. 
 
 ### Output
-The **&omega;** (output) module represents the end of the patch. Its three inputs correspond to the three color channels
+The **&Omega;** (output) module represents the end of the patch. Its three inputs correspond to the three color channels
 Red, Green and Blue. There must be exactly one &omega; module. If nothing is connected to the &omega; module, or 
 there is not exactly one of them, the patch will not compile.
 
 ### Other Controls
 New in V2 is the *REC* button. You can now create gif or png recordings of your patches! 
 
-The *X* button in the top-left will toggle hiding / showing the ui so you can see your patches in all their glory.
+The **X** button in the top-left will toggle hiding / showing the ui so you can see your patches in all their glory.
 
 ## Examples & Techniques
 Tiling Patterns:  
@@ -105,7 +107,7 @@ chromatic offset over time makes the rainbow.
 Combine polar coordinates and tiling to create tiled circles.
 
 ### Old Examples
-These are from the last version of Vynth.
+These are from the last version of Vynth. They should still work but might look a little different now.  
 ![screenshot1](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot1.png)
 ![screenshot2](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot2.png)
 ![screenshot3](https://github.com/jdillonh/Vynth/blob/pending-cord/examples/screenshot3.png)
