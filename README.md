@@ -2,6 +2,7 @@
 Use it [here](https://jdillonh.github.io/Vynth/).  
 
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/collage2.jpg">  
+
 ## What is it?
 
 Vynth is a modular digital video synthesizer, inspired by analog video synthesizers 
