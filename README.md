@@ -1,14 +1,15 @@
 # Vynth
 Use it [here](https://jdillonh.github.io/Vynth/).  
 
+<img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/collage2.jpg">  
 ## What is it?
-
-With Vynth, users make programs or "patches" out of simple building blocks. Those patches compile
-into GLSL fragment shaders that run via WebGL.
 
 Vynth is a modular digital video synthesizer, inspired by analog video synthesizers 
 (like [this](https://www.youtube.com/watch?v=5a7Lw08Ps6U)), 
 that runs in your browser.
+
+With Vynth, users make programs or "patches" out of simple building blocks. Those patches compile
+into GLSL fragment shaders that run via WebGL.
 
 It presents an interface that will be familiar to users of Max/MSP/Jitter or other visual programming 
 environments, and is an easy way to play with graphics programs without having to 
@@ -75,7 +76,7 @@ The **Multiply** Module takes two inputs and simply multiplies them.
 
 ### Output
 The **&Omega;** (output) module represents the end of the patch. Its three inputs correspond to the three color channels
-Red, Green and Blue. There must be exactly one &omega; module. If nothing is connected to the &omega; module, or 
+Red, Green and Blue. *There must be exactly one &Omega; module.* If nothing is connected to the &Omega; module, or 
 there is not exactly one of them, the patch will not compile.
 
 ### Other Controls
