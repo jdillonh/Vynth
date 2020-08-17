@@ -162,12 +162,10 @@ function pushAllUniformUpdates() {
     }
 
     uniformEls.filter( e => e.classList.contains('midiUniform')).forEach( midiEl => {
-	console.log('in filter i is', midiEl);
 	let input = midiEl.getElementsByTagName("input")[0];
 	pushMidiUniformUpdate(input);
     });
 
-    console.log(uniformEls);
     for( let i = 0; i < uniformEls.length; i++ ) {
 	let curr = uniformEls[i];
 	updateUniforms.push( ['u_' + getModuleIdNum(curr),

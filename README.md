@@ -33,9 +33,9 @@ You can right click while hovering over a module or a patch cable to **delete** 
 The first type of module is an *input*.
 These modules have no inlets. There are three kinds:  
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/xyt.png" height="60px">  
-**x**, which corresponds to a pixels x position  
-**y**, which corresponds to a pixels y position  
-and **t** (time), which is a value that steadily increases with time.  
+**x** which corresponds to a pixels x position  
+**y** which corresponds to a pixels y position  
+and **t** which is a value that steadily increases with time.  
 
 ### Transformations 
 The inputs can be transformed to make different patterns using
@@ -48,7 +48,7 @@ These module have 2 inputs, the first input is the value that will be transforme
 *chromatic offset*. As this number increases the difference in phase of the output across color channels will increase.
 This creates an effect similar to chromatic aberration.
 
-The **theta** and **rad** (radius) modules allow you to create patterns with radial 
+The **theta** and **rad** (radius) modules allow you to create patterns with cartesian 
 symmetry. They work by converting radial coordinates into polar coordinates. Here are examples of one way to wire them up:  
 (click the image to see it larger)  
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/radExample.png" width="400">
@@ -70,6 +70,7 @@ You do not need to click reload (*REL*) after every change to the number box, it
 The **MIDI** module works similarly to the number box, but its value is controlled by a CC midi controller.
 To use this module, add it to your patch and set the number in its UI to the MIDI CC#. The MIDI module listens on every channel 
 and will output 1 for MIDI 127 and 0 for MIDI 0.
+Make sure your midi controller is plugged in before starting Vynth.
 
 <img src="https://github.com/jdillonh/Vynth/blob/pending-cord/examples/multiply.png" width="50">  
 
